@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfu7cxw5o6gds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3yx6p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k0ok"]
+bg_color = Color(0.988235, 0, 0.27451, 1)
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6inq4"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 3.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.270588)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ry103"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -11.5
+offset_right = 28.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Paused"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="CenterContainer2"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="HealthBar2" type="ProgressBar" parent="CenterContainer2"]
+z_index = 1
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_3yx6p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8k0ok")
+value = 60.0
+show_percentage = false
+
+[node name="DeltaBar" type="ProgressBar" parent="CenterContainer2/HealthBar2"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6inq4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ry103")
+value = 75.88
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="CenterContainer2/HealthBar2"]
+wait_time = 0.3
+one_shot = true
+
+[node name="FadeOutTimer" type="Timer" parent="CenterContainer2/HealthBar2"]
+wait_time = 3.0
+one_shot = true
+
+[node name="CenterContainer3" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="CenterContainer3"]
+layout_mode = 2
+text = "Quit"

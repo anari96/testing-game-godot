@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://2g7sswtweokg"]
+
+[ext_resource type="Script" path="res://script/patrol_path.gd" id="1_fwckv"]
+
+[node name="PatrolPath" type="Node3D"]
+script = ExtResource("1_fwckv")
+
+[node name="PatrolPoint" type="Node3D" parent="."]
+
+[node name="PatrolBranch" type="Node3D" parent="."]

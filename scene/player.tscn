@@ -1,0 +1,477 @@
+[gd_scene load_steps=32 format=3 uid="uid://3eofywvhdde3"]
+
+[ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
+[ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
+[ext_resource type="Script" path="res://script/player_component/hand.gd" id="2_qnd4h"]
+[ext_resource type="Script" path="res://script/player_component/move.gd" id="3_0j3ka"]
+[ext_resource type="AnimationLibrary" uid="uid://ea7ktxjbrrts" path="res://animation/camera/camera.res" id="3_am4lt"]
+[ext_resource type="Script" path="res://script/player_component/health.gd" id="4_j1cpd"]
+[ext_resource type="PackedScene" uid="uid://bbi0c1u0735jb" path="res://scene/weapon/weapon_short_sword.tscn" id="4_qk3ia"]
+[ext_resource type="Script" path="res://script/player_component/stamina.gd" id="5_jv5rv"]
+[ext_resource type="Script" path="res://script/player_component/magic.gd" id="6_ckg67"]
+[ext_resource type="Script" path="res://script/magic/freeze.gd" id="7_geae5"]
+[ext_resource type="Script" path="res://script/player_component/wall_detector.gd" id="9_jc8q5"]
+[ext_resource type="Script" path="res://script/player_component/dash.gd" id="10_6ihn3"]
+[ext_resource type="Script" path="res://script/player_component/mantling.gd" id="11_27xkv"]
+[ext_resource type="Script" path="res://script/player_component/view_roll.gd" id="12_2y42i"]
+[ext_resource type="Script" path="res://script/player_component/object_pickup.gd" id="13_xo01q"]
+[ext_resource type="Script" path="res://script/player_component/grappling_hook.gd" id="14_t2f0q"]
+[ext_resource type="Script" path="res://script/player_component/crouch.gd" id="15_iyrvt"]
+[ext_resource type="Script" path="res://script/pause_menu.gd" id="15_sh7ij"]
+[ext_resource type="Script" path="res://script/player_component/camera_shake.gd" id="17_fce2e"]
+[ext_resource type="Script" path="res://script/player_component/camera_movement.gd" id="19_2io21"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_id44n"]
+radius = 0.6
+height = 3.8
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c8fxr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_703w7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3qbm"]
+bg_color = Color(1, 0.592157, 0.298039, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6inq4"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 2.0
+expand_margin_top = 1.0
+expand_margin_right = 2.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.270588)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ry103"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3yx6p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k0ok"]
+bg_color = Color(0.988235, 0, 0.27451, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_yldbs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandingCollision:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StandingCollision:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.8, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fehoi"]
+resource_name = "crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StandingCollision:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.8, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StandingCollision:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.9, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.8, 0), Vector3(0, -0.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ef2mq"]
+_data = {
+"RESET": SubResource("Animation_yldbs"),
+"crouch": SubResource("Animation_fehoi")
+}
+
+[node name="player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 11
+script = ExtResource("1_kwt2y")
+
+[node name="StandingCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_id44n")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+current = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="head/Camera3D"]
+libraries = {
+"": ExtResource("3_am4lt")
+}
+
+[node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.450164, 0.137281)
+script = ExtResource("2_qnd4h")
+player = NodePath("../..")
+stamina = NodePath("../../component/stamina")
+
+[node name="WeaponShortSword" parent="head/hand" instance=ExtResource("4_qk3ia")]
+
+[node name="tool" type="Node3D" parent="head"]
+
+[node name="magic" type="Node3D" parent="head" node_paths=PackedStringArray("player")]
+script = ExtResource("6_ckg67")
+player = NodePath("../..")
+
+[node name="Freeze" type="Node3D" parent="head/magic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+script = ExtResource("7_geae5")
+
+[node name="Point" type="Marker3D" parent="head/magic/Freeze"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.26679)
+
+[node name="InteractRaycast" type="RayCast3D" parent="head"]
+target_position = Vector3(0, 0, -2)
+
+[node name="PickupPosition" type="Marker3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.45001)
+
+[node name="GrappleRaycast" type="RayCast3D" parent="head"]
+target_position = Vector3(0, 0, -20)
+
+[node name="CoreCrystalRaycast" type="RayCast3D" parent="head"]
+target_position = Vector3(0, 0, -20)
+
+[node name="component" type="Node3D" parent="."]
+script = ExtResource("2_j4fmf")
+
+[node name="move" type="Node3D" parent="component" node_paths=PackedStringArray("wall_detector", "crouch_component", "screen_shake_component", "camera_animation_player", "camera_movement_component")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.763843, 0)
+script = ExtResource("3_0j3ka")
+wall_detector = NodePath("../WallDetector")
+crouch_component = NodePath("../crouch")
+screen_shake_component = NodePath("../CameraShake")
+camera_animation_player = NodePath("../../head/Camera3D/AnimationPlayer")
+camera_movement_component = NodePath("../CameraMovement")
+
+[node name="Timer" type="Timer" parent="component/move"]
+wait_time = 0.2
+one_shot = true
+
+[node name="health" type="Node3D" parent="component" node_paths=PackedStringArray("camera_animation_player", "health_bar", "delta_bar", "timer", "fade_out_timer", "camera_shake_component")]
+script = ExtResource("4_j1cpd")
+camera_animation_player = NodePath("../../head/Camera3D/AnimationPlayer")
+health_bar = NodePath("../../UserInterface/ui/HealthBar")
+delta_bar = NodePath("../../UserInterface/ui/HealthBar/DeltaBar")
+timer = NodePath("../../UserInterface/ui/HealthBar/Timer")
+fade_out_timer = NodePath("../../UserInterface/ui/HealthBar/FadeOutTimer")
+camera_shake_component = NodePath("../CameraShake")
+
+[node name="stamina" type="Node3D" parent="component" node_paths=PackedStringArray("stamina_bar", "delta_bar", "timer", "fade_out_timer")]
+script = ExtResource("5_jv5rv")
+stamina_bar = NodePath("../../UserInterface/ui/StaminaBar")
+delta_bar = NodePath("../../UserInterface/ui/StaminaBar/DeltaBar")
+timer = NodePath("../../UserInterface/ui/StaminaBar/Timer")
+fade_out_timer = NodePath("../../UserInterface/ui/StaminaBar/FadeOutTimer")
+
+[node name="Timer" type="Timer" parent="component/stamina"]
+wait_time = 1.5
+one_shot = true
+
+[node name="WallDetector" type="Node3D" parent="component"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70202, 0)
+visible = false
+script = ExtResource("9_jc8q5")
+
+[node name="RayCast3D" type="RayCast3D" parent="component/WallDetector"]
+target_position = Vector3(0, 0, -1.5)
+
+[node name="RayCast3D2" type="RayCast3D" parent="component/WallDetector"]
+target_position = Vector3(0, 0, 1.5)
+
+[node name="RayCast3D3" type="RayCast3D" parent="component/WallDetector"]
+target_position = Vector3(1.5, 0, 0)
+
+[node name="RayCast3D4" type="RayCast3D" parent="component/WallDetector"]
+target_position = Vector3(-1.5, 0, 0)
+
+[node name="dash" type="Node3D" parent="component" node_paths=PackedStringArray("move_component", "camera_animation_player", "stamina", "health")]
+script = ExtResource("10_6ihn3")
+move_component = NodePath("../move")
+camera_animation_player = NodePath("../../head/Camera3D/AnimationPlayer")
+stamina = NodePath("../stamina")
+health = NodePath("../health")
+
+[node name="Timer" type="Timer" parent="component/dash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="invisibilityTimer" type="Timer" parent="component/dash"]
+wait_time = 0.3
+one_shot = true
+
+[node name="GrapplingHook" type="Node3D" parent="component" node_paths=PackedStringArray("raycast")]
+script = ExtResource("14_t2f0q")
+raycast = NodePath("../../head/GrappleRaycast")
+
+[node name="Timer" type="Timer" parent="component/GrapplingHook"]
+wait_time = 0.4
+one_shot = true
+
+[node name="mantling" type="Node3D" parent="component"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.777434, 0)
+script = ExtResource("11_27xkv")
+
+[node name="WaistRaycast" type="RayCast3D" parent="component/mantling"]
+target_position = Vector3(0, 0, -1.2)
+
+[node name="FrontRaycast" type="RayCast3D" parent="component/mantling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615134, -1.05599)
+
+[node name="ViewRoll" type="Node3D" parent="component" node_paths=PackedStringArray("move", "camera")]
+script = ExtResource("12_2y42i")
+move = NodePath("../move")
+camera = NodePath("../../head/Camera3D")
+
+[node name="ObjectPickup" type="Node3D" parent="component"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77997, 0)
+script = ExtResource("13_xo01q")
+
+[node name="crouch" type="Node3D" parent="component" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("15_iyrvt")
+animation_player = NodePath("../../AnimationPlayer")
+
+[node name="RayCast3D" type="RayCast3D" parent="component/crouch"]
+target_position = Vector3(0, 1, 0)
+
+[node name="CameraShake" type="Node3D" parent="component" node_paths=PackedStringArray("camera")]
+script = ExtResource("17_fce2e")
+camera = NodePath("../../head/Camera3D")
+noise = SubResource("FastNoiseLite_c8fxr")
+
+[node name="CameraMovement" type="Node3D" parent="component" node_paths=PackedStringArray("camera")]
+script = ExtResource("19_2io21")
+camera = NodePath("../../head/Camera3D")
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="Control" parent="UserInterface" node_paths=PackedStringArray("player")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("15_sh7ij")
+player = NodePath("../..")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UserInterface/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -365.0
+offset_right = 484.0
+offset_bottom = 365.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SideNavigation" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer"]
+layout_mode = 2
+
+[node name="EquipmentButton" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/SideNavigation"]
+layout_mode = 2
+text = "Equipment"
+
+[node name="ItemButton" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/SideNavigation"]
+layout_mode = 2
+text = "Item"
+
+[node name="Quit" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/SideNavigation"]
+layout_mode = 2
+text = "Quit"
+
+[node name="MainWindow" type="Control" parent="UserInterface/PauseMenu/HSplitContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0235294, 0.152941, 0.32549, 1)
+
+[node name="SplitContainer" type="SplitContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ui" type="Control" parent="UserInterface" groups=["interface"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="StaminaBar" type="ProgressBar" parent="UserInterface/ui"]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -241.0
+offset_top = 371.0
+offset_right = 2.0
+offset_bottom = 381.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 1.6)
+theme_override_styles/background = SubResource("StyleBoxEmpty_703w7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p3qbm")
+value = 60.0
+show_percentage = false
+
+[node name="DeltaBar" type="ProgressBar" parent="UserInterface/ui/StaminaBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6inq4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ry103")
+value = 75.88
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="UserInterface/ui/StaminaBar"]
+wait_time = 0.3
+one_shot = true
+
+[node name="FadeOutTimer" type="Timer" parent="UserInterface/ui/StaminaBar"]
+wait_time = 3.0
+one_shot = true
+
+[node name="HealthBar" type="ProgressBar" parent="UserInterface/ui"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 436.0
+offset_right = 150.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_3yx6p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8k0ok")
+value = 100.0
+show_percentage = false
+
+[node name="DeltaBar" type="ProgressBar" parent="UserInterface/ui/HealthBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6inq4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ry103")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="UserInterface/ui/HealthBar"]
+wait_time = 0.3
+one_shot = true
+
+[node name="FadeOutTimer" type="Timer" parent="UserInterface/ui/HealthBar"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ef2mq")
+}

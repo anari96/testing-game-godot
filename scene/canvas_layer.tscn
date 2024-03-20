@@ -1,0 +1,111 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1pent4acvqrl"]
+
+[ext_resource type="Texture2D" uid="uid://c8mbwwac2fwie" path="res://texture/ui/bar_black.png" id="1_5wl14"]
+[ext_resource type="Texture2D" uid="uid://c1n3xpfhreij1" path="res://texture/ui/bar_green.png" id="2_68rn1"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ui" type="Control" parent="." groups=["interface"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="health" type="Label" parent="ui/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Health :"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ui/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="health_value" type="Label" parent="ui/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="state_label" type="Label" parent="ui/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Health :"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ui/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="state_value" type="Label" parent="ui/VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="stamina" type="TextureProgressBar" parent="ui"]
+layout_mode = 2
+offset_left = 14.0
+offset_top = 483.0
+offset_right = 54.0
+offset_bottom = 633.0
+fill_mode = 3
+texture_under = ExtResource("1_5wl14")
+texture_progress = ExtResource("2_68rn1")
+
+[node name="health" type="TextureProgressBar" parent="ui"]
+layout_mode = 2
+offset_left = 73.0
+offset_top = 483.0
+offset_right = 113.0
+offset_bottom = 633.0
+fill_mode = 3
+texture_under = ExtResource("1_5wl14")
+texture_progress = ExtResource("2_68rn1")
+
+[node name="menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Died"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="menu/CenterContainer/VBoxContainer/BoxContainer"]
+layout_mode = 2
+text = "Restart
+"
+
+[node name="Button3" type="Button" parent="menu/CenterContainer/VBoxContainer/BoxContainer"]
+layout_mode = 2
+text = "Quit
+"

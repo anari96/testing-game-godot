@@ -1,0 +1,140 @@
+[gd_scene load_steps=15 format=3 uid="uid://cbtmy6a4ws0uc"]
+
+[ext_resource type="Script" path="res://script/animated.gd" id="1_n65hd"]
+[ext_resource type="PackedScene" uid="uid://mv6cybjiam45" path="res://model/character1.glb" id="1_roeak"]
+[ext_resource type="Script" path="res://script/player.gd" id="1_u25jp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_050nd"]
+
+[sub_resource type="Sky" id="Sky_fjrea"]
+sky_material = SubResource("ProceduralSkyMaterial_050nd")
+
+[sub_resource type="Environment" id="Environment_ialux"]
+background_mode = 2
+sky = SubResource("Sky_fjrea")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g67om"]
+height = 3.45269
+radius = 1.21976
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f35qf"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a6mk7"]
+points = PackedVector3Array(-0.214183, -0.948028, -0.451129, 0.0227317, 0.952146, 0.498887, 0.171488, 0.951995, 0.469018, -0.125934, 0.952684, -0.483291, 0.499663, -0.953674, -0.00688883, -0.387646, -0.93796, 0.315653, -0.483292, 0.952686, -0.12593, 0.375097, 0.940128, -0.329816, 0.171488, -0.951995, 0.469018, 0.140783, -0.945485, -0.479579, 0.469014, 0.952011, 0.171499, -0.387646, 0.93796, 0.315653, -0.483292, -0.952686, -0.12593, -0.183511, -0.943076, 0.464698, 0.407412, -0.946994, 0.288983, 0.375097, -0.940128, -0.329816, -0.395154, 0.955761, -0.305523, -0.479555, 0.945437, 0.14088, 0.464698, 0.943099, -0.183512, 0.140783, 0.945485, -0.479579, -0.243203, 0.945955, 0.436491, -0.479555, -0.945437, 0.14088, 0.288971, 0.946988, 0.407421, -0.395154, -0.955761, -0.305523, -0.0069906, -0.953641, 0.499658, 0.499663, 0.953674, -0.00688883, -0.271948, 0.943071, -0.419217, 0.464698, -0.943099, -0.183512, -0.125934, -0.952684, -0.483291, 0.315648, 0.937973, -0.387651, 0.469014, -0.952011, 0.171499, 0.407412, 0.946994, 0.288983)
+
+[sub_resource type="Animation" id="Animation_nrr2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -2.30466)]
+}
+
+[sub_resource type="Animation" id="Animation_2jhh2"]
+resource_name = "up_down"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -2.30466), Vector3(0, 1.70663, -2.30466), Vector3(0, -1.04472, -2.30466), Vector3(0, 0, -2.30466)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1b0r8"]
+_data = {
+"RESET": SubResource("Animation_nrr2y"),
+"up_down": SubResource("Animation_2jhh2")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_a4jmm"]
+size = Vector3(5, 1, 5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j3g8o"]
+points = PackedVector3Array(2.53919, 0.571429, 2.53869, -2.35782, -0.5, -2.35735, -2.35782, -0.5, 2.35735, -2.53919, 0.571429, -2.53869, 2.35782, -0.5, -2.35735, -2.53919, 0.571429, 2.53869, 2.53919, 0.571429, -2.53869, 2.35782, -0.5, 2.35735)
+
+[node name="root" type="Node3D"]
+
+[node name="scene1" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="scene1"]
+environment = SubResource("Environment_ialux")
+
+[node name="environment" type="Node3D" parent="scene1"]
+
+[node name="entity" type="Node3D" parent="scene1"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="scene1/entity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.763843, 0)
+script = ExtResource("1_u25jp")
+
+[node name="head" type="Node3D" parent="scene1/entity/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2441, 0)
+
+[node name="Camera3D" type="Camera3D" parent="scene1/entity/CharacterBody3D/head"]
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="scene1/entity/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85117, 0)
+shape = SubResource("CylinderShape3D_g67om")
+
+[node name="character1" parent="scene1/entity/CharacterBody3D" instance=ExtResource("1_roeak")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="geometry" type="Node3D" parent="scene1"]
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="scene1/geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.30466)
+script = ExtResource("1_n65hd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="scene1/geometry/AnimatableBody3D"]
+mesh = SubResource("CylinderMesh_f35qf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="scene1/geometry/AnimatableBody3D"]
+shape = SubResource("ConvexPolygonShape3D_a6mk7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="scene1/geometry/AnimatableBody3D"]
+libraries = {
+"": SubResource("AnimationLibrary_1b0r8")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="scene1/geometry"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="scene1/geometry/StaticBody3D"]
+mesh = SubResource("BoxMesh_a4jmm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="scene1/geometry/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_j3g8o")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/Control"]
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui/Control/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test
+"
