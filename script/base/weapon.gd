@@ -10,6 +10,9 @@ func use1() -> void:
 func use2() -> void:
 	print("use2")
 
+func use3() -> void:
+	print("use3")
+
 func equip() -> void:
 	var equipped = true
 	show()

@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cwo4u7p84qm71"]
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="CanvasLayer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.270588, 0.32549, 1)
+metadata/_edit_lock_ = true
+
+[node name="Menu" type="VBoxContainer" parent="CanvasLayer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = 59.0
+offset_right = 73.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Menu"]
+layout_mode = 2
+text = "Play"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Menu"]
+layout_mode = 2
+text = "Select Stage
+"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Menu"]
+layout_mode = 2
+text = "Quit"
+
+[node name="SceneSelect" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -119.0
+offset_right = 137.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/SceneSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.329412)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/SceneSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -44.5
+offset_right = 114.5
+offset_bottom = 66.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/SceneSelect/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+columns = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button2" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button3" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button4" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button5" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button6" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button7" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button8" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button9" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Button10" type="Button" parent="CanvasLayer/SceneSelect/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Stage 1"
+
+[node name="Label" type="Label" parent="CanvasLayer/SceneSelect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Stage Select
+"

@@ -17,7 +17,12 @@ func _input(event):
 		if Input.is_action_just_pressed("use1"):
 			if get_child(equip_index) != null:
 				get_child(equip_index).use1()
-
+		if Input.is_action_just_pressed("use2"):
+			if get_child(equip_index) != null:
+				get_child(equip_index).use2()
+		if Input.is_action_just_pressed("use3"):
+			if get_child(equip_index) != null:
+				get_child(equip_index).use3()
 		if Input.is_action_just_pressed("key_1"):
 			change_equip(0)
 		elif Input.is_action_just_pressed("key_2"):

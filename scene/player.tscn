@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://script/player_component/hand.gd" id="2_qnd4h"]
 [ext_resource type="Script" path="res://script/player_component/move.gd" id="3_0j3ka"]
 [ext_resource type="AnimationLibrary" uid="uid://ea7ktxjbrrts" path="res://animation/camera/camera.res" id="3_am4lt"]
+[ext_resource type="PackedScene" uid="uid://dxun0ixfth63f" path="res://scene/weapon/weapon_gun.tscn" id="4_ij58q"]
 [ext_resource type="Script" path="res://script/player_component/health.gd" id="4_j1cpd"]
-[ext_resource type="PackedScene" uid="uid://bbi0c1u0735jb" path="res://scene/weapon/weapon_short_sword.tscn" id="4_qk3ia"]
 [ext_resource type="Script" path="res://script/player_component/stamina.gd" id="5_jv5rv"]
 [ext_resource type="Script" path="res://script/player_component/magic.gd" id="6_ckg67"]
 [ext_resource type="Script" path="res://script/magic/freeze.gd" id="7_geae5"]
@@ -153,13 +153,14 @@ libraries = {
 "": ExtResource("3_am4lt")
 }
 
-[node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina")]
+[node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina", "movement")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.450164, 0.137281)
 script = ExtResource("2_qnd4h")
 player = NodePath("../..")
 stamina = NodePath("../../component/stamina")
+movement = NodePath("../../component/move")
 
-[node name="WeaponShortSword" parent="head/hand" instance=ExtResource("4_qk3ia")]
+[node name="WeaponGun" parent="head/hand" instance=ExtResource("4_ij58q")]
 
 [node name="tool" type="Node3D" parent="head"]
 
@@ -177,7 +178,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.26679)
 [node name="InteractRaycast" type="RayCast3D" parent="head"]
 target_position = Vector3(0, 0, -2)
 
-[node name="PickupPosition" type="Marker3D" parent="head"]
+[node name="PickupMarker" type="Marker3D" parent="head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.45001)
 
 [node name="GrappleRaycast" type="RayCast3D" parent="head"]
