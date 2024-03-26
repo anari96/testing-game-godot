@@ -7,6 +7,7 @@ extends Weapon
 @onready var projectile = preload("res://scene/projectile/bullet.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	equipped = true
 	light_timer.timeout.connect(_on_light_timer_timeout)
 
 func use1() -> void:
@@ -32,7 +33,16 @@ func play_animation(player:AnimationPlayer,animation) -> void:
 		player.play(animation)
 	else:
 		player.play(animation)
-	
+		
+func equip() -> void:
+	play_animation(arm_animation_player,"arm_equip")
+	play_animation(gun_animation_player,"gun_equip")
+	equipped = true
+	show()	
+
+func remove() -> void:
+	equipped = false
+	hide()
 
 func _on_light_timer_timeout():
 	$OmniLight3D.light_energy = 0.0

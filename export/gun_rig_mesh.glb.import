@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cjhoqqk4ahrqq"
-path="res://.godot/imported/mesh.glb-a82d82ed0494cce4ece883fd184c6f8b.scn"
+uid="uid://b2jrk1h12xi7w"
+path="res://.godot/imported/gun_rig_mesh.glb-59a0b5c8e8df5da2a88b9ab55e509e2f.scn"
 
 [deps]
 
-source_file="res://export/mesh.glb"
-dest_files=["res://.godot/imported/mesh.glb-a82d82ed0494cce4ece883fd184c6f8b.scn"]
+source_file="res://export/gun_rig_mesh.glb"
+dest_files=["res://.godot/imported/gun_rig_mesh.glb-59a0b5c8e8df5da2a88b9ab55e509e2f.scn"]
 
 [params]
 
