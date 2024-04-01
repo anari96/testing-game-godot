@@ -26,15 +26,14 @@ void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
 }
 
-
 void light(){
-	float dot_product = clamp(dot(NORMAL,LIGHT), -0.9,0.9);
-	float sample = clamp((dot_product + 1.0) * ATTENUATION / 2.1, 0.05, 0.95);
+	
+	
+	float dot_product = clamp(dot(NORMAL,LIGHT), 0.0,1.0);
+	float sample = clamp((dot_product + 1.0) * ATTENUATION, 0.05, 0.95);
 	vec4 shaded = texture(color_gradient,vec2(sample, 0.0));
 	DIFFUSE_LIGHT += clamp((shaded.rgb * LIGHT_COLOR), 0.0, 1.0);
 }
-
-
 
 void fragment() {
 	vec2 base_uv = UV;
@@ -51,7 +50,7 @@ void fragment() {
 
 [sub_resource type="Gradient" id="Gradient_dmaee"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.054902, 0.0941176, 0.458824)
+offsets = PackedFloat32Array(0, 0.0823529, 0.113725, 0.764706)
 colors = PackedColorArray(0, 0, 0, 1, 0.129559, 0.129558, 0.129558, 1, 0.625597, 0.625597, 0.625597, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_m1pht"]
@@ -66,7 +65,7 @@ gradient = SubResource("Gradient_274ii")
 resource_name = "floor"
 render_priority = 0
 shader = SubResource("Shader_xs7ng")
-shader_parameter/albedo = Color(0.419287, 0.271729, 0.136033, 1)
+shader_parameter/albedo = Color(0.964706, 0.764706, 0.407843, 1)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
 shader_parameter/metallic_texture_channel = null

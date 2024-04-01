@@ -15,7 +15,7 @@ noise = SubResource("FastNoiseLite_gtmk7")
 [sub_resource type="LabelSettings" id="LabelSettings_7s7h0"]
 font_size = 20
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="LoadingScreen" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bxbrtf2yivyxa"]
+
+[ext_resource type="Shader" path="res://shader/toon_test.gdshader" id="1_f5bbp"]
+[ext_resource type="Texture2D" uid="uid://btu2xyils2mv3" path="res://texture/hatch3.png" id="2_khy62"]
+
+[sub_resource type="Gradient" id="Gradient_6p0sc"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.121569, 0.172549, 0.407843)
+colors = PackedColorArray(0, 0, 0, 1, 0.00820203, 0.00820202, 0.00820202, 1, 0.0338533, 0.0338533, 0.0338533, 1, 0.886262, 0.886261, 0.886262, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j3wrh"]
+gradient = SubResource("Gradient_6p0sc")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_f5bbp")
+shader_parameter/albedo = Color(0.839216, 0.839216, 0.839216, 1)
+shader_parameter/point_size = null
+shader_parameter/roughness = null
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = null
+shader_parameter/metallic = -1.635
+shader_parameter/light_direction = Vector3(1, 1, 1)
+shader_parameter/hatching_threshold = 0.5
+shader_parameter/attenuation_factor = 0.5
+shader_parameter/gradient_texture = SubResource("GradientTexture1D_j3wrh")
+shader_parameter/hatching_texture = ExtResource("2_khy62")

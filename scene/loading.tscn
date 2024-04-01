@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://heqfwcv4q00y"]
+
+[sub_resource type="Gradient" id="Gradient_o57x8"]
+offsets = PackedFloat32Array(0.7, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gtmk7"]
+noise_type = 2
+seed = 160
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hbyf2"]
+seamless = true
+color_ramp = SubResource("Gradient_o57x8")
+noise = SubResource("FastNoiseLite_gtmk7")
+
+[sub_resource type="LabelSettings" id="LabelSettings_o682t"]
+font_size = 34
+
+[node name="Loading" type="CanvasLayer"]
+layer = -10
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_hbyf2")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_o682t")

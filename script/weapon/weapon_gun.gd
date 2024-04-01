@@ -8,6 +8,8 @@ extends Weapon
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	equipped = true
+	play_animation(arm_animation_player,"arm_equip")
+	play_animation(gun_animation_player,"gun_equip")
 	light_timer.timeout.connect(_on_light_timer_timeout)
 
 func use1() -> void:

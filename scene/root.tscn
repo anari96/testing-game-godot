@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://script/root.gd" id="1_ho3es"]
 [ext_resource type="Script" path="res://script/scene_manager.gd" id="2_k5cr3"]
-[ext_resource type="PackedScene" uid="uid://lsplao41jrru" path="res://scene/map/dungeon_test.tscn" id="3_e6sx6"]
+[ext_resource type="PackedScene" uid="uid://lsplao41jrru" path="res://scene/map/dungeon_test.tscn" id="3_gx2na"]
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_ho3es")
 
+[node name="scene" parent="." instance=ExtResource("3_gx2na")]
+
 [node name="SceneManager" type="Node3D" parent="."]
 script = ExtResource("2_k5cr3")
-
-[node name="scene2" parent="SceneManager" instance=ExtResource("3_e6sx6")]

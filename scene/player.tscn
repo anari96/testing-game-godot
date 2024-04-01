@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=41 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -20,6 +20,11 @@
 [ext_resource type="Script" path="res://script/pause_menu.gd" id="15_sh7ij"]
 [ext_resource type="Script" path="res://script/player_component/camera_shake.gd" id="17_fce2e"]
 [ext_resource type="Script" path="res://script/player_component/camera_movement.gd" id="19_2io21"]
+[ext_resource type="Script" path="res://script/player_component/interaction.gd" id="20_myqlk"]
+[ext_resource type="Shader" path="res://material/shader/vignette.gdshader" id="21_isbjp"]
+[ext_resource type="Shader" path="res://material/shader/retro_psx.gdshader" id="22_sq8wx"]
+[ext_resource type="Shader" path="res://material/shader/poster.gdshader" id="23_50gll"]
+[ext_resource type="Shader" path="res://material/shader/retro.gdshader" id="24_uc2ps"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_id44n"]
 radius = 0.6
@@ -50,6 +55,38 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k0ok"]
 bg_color = Color(0.988235, 0, 0.27451, 1)
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uu0hn"]
+shader = ExtResource("21_isbjp")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.0
+shader_parameter/outer_radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qm07a"]
+shader = ExtResource("22_sq8wx")
+shader_parameter/change_color_depth = true
+shader_parameter/target_color_depth = 5
+shader_parameter/dithering = true
+shader_parameter/scale_resolution = true
+shader_parameter/target_resolution_scale = 2
+shader_parameter/enable_recolor = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swxol"]
+shader = ExtResource("23_50gll")
+shader_parameter/level1 = Color(0, 0, 0, 1)
+shader_parameter/level2 = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/level3 = Color(1, 1, 1, 1)
+shader_parameter/level4 = Color(1, 1, 1, 1)
+shader_parameter/threshold1 = 0.1
+shader_parameter/threshold2 = 0.4
+shader_parameter/threshold3 = 0.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpane"]
+shader = ExtResource("24_uc2ps")
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 25.0
+shader_parameter/smear = 1.0
+shader_parameter/blur_samples = 15
 
 [sub_resource type="Animation" id="Animation_yldbs"]
 length = 0.001
@@ -147,11 +184,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="head"]
 current = true
+far = 1000.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="head/Camera3D"]
 libraries = {
 "": ExtResource("3_am4lt")
 }
+
+[node name="SpotLight3D" type="SpotLight3D" parent="head/Camera3D"]
+light_energy = 0.5
+spot_range = 26.9957
+spot_angle = 61.2662
 
 [node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina", "movement")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.450164, 0.137281)
@@ -177,14 +220,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.26679)
 
 [node name="InteractRaycast" type="RayCast3D" parent="head"]
 target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="PickupMarker" type="Marker3D" parent="head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.45001)
+visible = false
 
 [node name="GrappleRaycast" type="RayCast3D" parent="head"]
+visible = false
 target_position = Vector3(0, 0, -20)
 
 [node name="CoreCrystalRaycast" type="RayCast3D" parent="head"]
+visible = false
 target_position = Vector3(0, 0, -20)
 
 [node name="component" type="Node3D" parent="."]
@@ -298,7 +346,12 @@ noise = SubResource("FastNoiseLite_c8fxr")
 script = ExtResource("19_2io21")
 camera = NodePath("../../head/Camera3D")
 
+[node name="Interaction" type="Node3D" parent="component" node_paths=PackedStringArray("interaction_raycast")]
+script = ExtResource("20_myqlk")
+interaction_raycast = NodePath("../../head/InteractRaycast")
+
 [node name="UserInterface" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="PauseMenu" type="Control" parent="UserInterface" node_paths=PackedStringArray("player")]
 visible = false
@@ -400,9 +453,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -241.0
-offset_top = 371.0
+offset_top = 247.0
 offset_right = 2.0
-offset_bottom = 381.0
+offset_bottom = 257.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 1.6)
@@ -441,9 +494,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = 436.0
+offset_top = 312.0
 offset_right = 150.0
-offset_bottom = 456.0
+offset_bottom = 332.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_3yx6p")
@@ -471,6 +524,54 @@ one_shot = true
 [node name="FadeOutTimer" type="Timer" parent="UserInterface/ui/HealthBar"]
 wait_time = 3.0
 one_shot = true
+
+[node name="PostProcessing" type="CanvasLayer" parent="."]
+
+[node name="PP1" type="CanvasLayer" parent="PostProcessing"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing/PP1"]
+material = SubResource("ShaderMaterial_uu0hn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PP2" type="CanvasLayer" parent="PostProcessing"]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing/PP2"]
+material = SubResource("ShaderMaterial_qm07a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PP4" type="CanvasLayer" parent="PostProcessing"]
+layer = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing/PP4"]
+material = SubResource("ShaderMaterial_swxol")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PP5" type="CanvasLayer" parent="PostProcessing"]
+layer = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PostProcessing/PP5"]
+material = SubResource("ShaderMaterial_gpane")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,11 +1,10 @@
 extends Control
 
 @export var player:CharacterBody3D
-@onready var quit_button
+@onready var quit_button = $HSplitContainer/SideNavigation/Quit
 
 func _ready():
-	pass
-	#quit_button.pressed.connect(quit)
+	quit_button.pressed.connect(quit)
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -28,7 +27,7 @@ func _physics_process(delta):
 
 func quit():
 	get_tree().quit()
-	
+
 func resume():
 	player.is_pausing = false
 

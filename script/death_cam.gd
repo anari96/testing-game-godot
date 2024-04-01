@@ -9,5 +9,5 @@ func _ready():
 
 func _on_respawn_timer_timeout():
 	
-	var spawn_point = root.spawn_point
+	var spawn_point = SpawnManager.spawn_point
 	spawn_point.spawn()

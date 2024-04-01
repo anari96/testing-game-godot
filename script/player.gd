@@ -45,9 +45,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func hurt(value):
-	#hit_stop(0.2,0.05)
 	$component/health.hurt(value)
-	#$head/Camera3D/AnimationPlayer.play("hit")
 
 func enable():
 	$component/move.enable()
