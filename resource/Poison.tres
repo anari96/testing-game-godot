@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://u5wyxvje72bs"]
+
+[ext_resource type="Script" path="res://script/item.gd" id="1_3q78j"]
+
+[resource]
+script = ExtResource("1_3q78j")
+name = "Poison"
+type = 0
+description = "Kills you"

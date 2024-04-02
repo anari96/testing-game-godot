@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://xxetw8uqwcj4"]
+
+[ext_resource type="Script" path="res://script/item.gd" id="1_7bhtb"]
+
+[resource]
+script = ExtResource("1_7bhtb")
+name = "Health"
+type = 0
+description = "Heal your wound"

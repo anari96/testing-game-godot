@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://d0jrql543whg2"]
+[gd_scene load_steps=92 format=3 uid="uid://d0jrql543whg2"]
 
 [ext_resource type="Material" uid="uid://y3uaqwwcfxgj" path="res://material/map/main_hall_3.tres" id="1_evr5g"]
 [ext_resource type="Script" path="res://script/scene/map_base.gd" id="1_wxjl7"]
@@ -10,7 +10,9 @@
 [ext_resource type="Material" uid="uid://mckei8bhjvs2" path="res://material/map/main_hall_2.tres" id="5_3u0jq"]
 [ext_resource type="PackedScene" uid="uid://dn2nj7070mc5s" path="res://scene/player_spawn.tscn" id="5_7m86f"]
 [ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/change_scene_interaction_area.tscn" id="9_rhs2s"]
+[ext_resource type="PackedScene" uid="uid://wi43s1ruo2cb" path="res://scene/health_pickup.tscn" id="10_id85c"]
 [ext_resource type="Script" path="res://script/player_spawn.gd" id="11_btm3q"]
+[ext_resource type="PackedScene" uid="uid://cojqbjj6dlb2k" path="res://scene/poison_pickup.tscn" id="13_6c4rt"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lo38p"]
 _surfaces = [{
@@ -1018,6 +1020,9 @@ shape = SubResource("ConcavePolygonShape3D_g4y18")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7624, 12.5836, 5.73982)
 mesh = SubResource("BoxMesh_36cyc")
 
+[node name="health_pickup" parent="." instance=ExtResource("10_id85c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263468, 0.193281, 17.9221)
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263468, 0.720419, 17.9221)
 omni_range = 0.903
@@ -1054,3 +1059,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.06317, 6.59701, -2.72187)
 light_energy = 0.5
 spot_range = 18.713
 spot_angle = 61.2662
+
+[node name="poison_pickup" parent="." instance=ExtResource("13_6c4rt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72784, 0.260007, 17.8954)

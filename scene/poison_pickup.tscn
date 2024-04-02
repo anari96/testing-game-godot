@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cojqbjj6dlb2k"]
+
+[ext_resource type="Script" path="res://script/health_pickup.gd" id="1_gpnul"]
+[ext_resource type="Resource" uid="uid://u5wyxvje72bs" path="res://resource/Poison.tres" id="2_lv4dj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_73ana"]
+size = Vector3(0.548828, 0.0986328, 0.616211)
+
+[sub_resource type="BoxMesh" id="BoxMesh_imhpy"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="poison_pickup" type="Area3D"]
+script = ExtResource("1_gpnul")
+item = ExtResource("2_lv4dj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_73ana")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_imhpy")

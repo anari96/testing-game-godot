@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=42 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://script/player_component/interaction.gd" id="20_myqlk"]
 [ext_resource type="Shader" path="res://material/shader/vignette.gdshader" id="21_isbjp"]
 [ext_resource type="Shader" path="res://material/shader/retro_psx.gdshader" id="22_sq8wx"]
+[ext_resource type="Script" path="res://script/menu/item_list.gd" id="22_x0hvi"]
 [ext_resource type="Shader" path="res://material/shader/poster.gdshader" id="23_50gll"]
 [ext_resource type="Shader" path="res://material/shader/retro.gdshader" id="24_uc2ps"]
 
@@ -375,7 +376,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -484.0
 offset_top = -365.0
-offset_right = 484.0
+offset_right = -161.0
 offset_bottom = 365.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -395,42 +396,34 @@ text = "Item"
 layout_mode = 2
 text = "Quit"
 
-[node name="MainWindow" type="Control" parent="UserInterface/PauseMenu/HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0235294, 0.152941, 0.32549, 1)
-
-[node name="SplitContainer" type="SplitContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer"]
+[node name="item_type" type="CenterContainer" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer/ScrollContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer/item_type"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/MainWindow/SplitContainer/ScrollContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer/item_type/HBoxContainer"]
 layout_mode = 2
+text = "All"
+
+[node name="Button2" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer/item_type/HBoxContainer"]
+layout_mode = 2
+text = "Consumable"
+
+[node name="Button3" type="Button" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer/item_type/HBoxContainer"]
+layout_mode = 2
+text = "Key"
+
+[node name="item_container" type="ScrollContainer" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="item_list" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer/VBoxContainer/item_container"]
+layout_mode = 2
+script = ExtResource("22_x0hvi")
 
 [node name="ui" type="Control" parent="UserInterface" groups=["interface"]]
 layout_mode = 3
@@ -540,6 +533,7 @@ grow_vertical = 2
 
 [node name="PP2" type="CanvasLayer" parent="PostProcessing"]
 layer = 2
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="PostProcessing/PP2"]
 material = SubResource("ShaderMaterial_qm07a")

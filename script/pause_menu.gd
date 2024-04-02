@@ -14,6 +14,7 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			hide()
 		elif !player.is_pausing :
+			$HSplitContainer/VBoxContainer/item_container/item_list.populate()
 			player.is_freelook = false
 			player.is_pausing = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

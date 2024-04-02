@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://3rkxda06hkd6"]
+
+[ext_resource type="Texture2D" uid="uid://blrhw1prcvwi0" path="res://texture/item_placeholder.png" id="1_28ukq"]
+[ext_resource type="Script" path="res://script/menu/item.gd" id="1_iwda3"]
+[ext_resource type="Resource" uid="uid://xxetw8uqwcj4" path="res://resource/Health.tres" id="2_7q3dh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4y2b8"]
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="item" type="HBoxContainer"]
+size_flags_horizontal = 4
+script = ExtResource("1_iwda3")
+item = ExtResource("2_7q3dh")
+
+[node name="item_image" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_28ukq")
+
+[node name="Label" type="Label" parent="item_image"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 28.0
+grow_vertical = 0
+text = "x"
+label_settings = SubResource("LabelSettings_4y2b8")
+
+[node name="item_count" type="Label" parent="item_image"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -23.0
+offset_right = 37.0
+grow_vertical = 0
+text = "1"
+label_settings = SubResource("LabelSettings_4y2b8")
+
+[node name="item_name" type="Button" parent="."]
+layout_mode = 2
+text = "Item Name"
