@@ -10,3 +10,6 @@ func _physics_process(delta):
 			var interaction_item = interaction_raycast.get_collider()
 			if interaction_item.has_method("use"):
 				interaction_item.use()
+				if interaction_item.use() == "locked":
+					parent.text.show()
+					#parent.text.animation_player.play("text_appears")

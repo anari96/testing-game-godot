@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://u5wyxvje72bs"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://u5wyxvje72bs"]
 
 [ext_resource type="Script" path="res://script/item.gd" id="1_3q78j"]
+[ext_resource type="Script" path="res://script/item/poison.gd" id="1_ko8tc"]
 
 [resource]
 script = ExtResource("1_3q78j")
 name = "Poison"
 type = 0
 description = "Kills you"
+heal_value = 0
+effect = ExtResource("1_ko8tc")

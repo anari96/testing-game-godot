@@ -18,7 +18,9 @@ func remove():
 
 func _on_item_pressed():
 	use()
+	InventoryManager.remove_item(item.name)
 	if item_count == 1:
+		
 		queue_free()
 	else:
 		item_count -= 1

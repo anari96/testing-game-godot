@@ -53,10 +53,11 @@ func hurt(value):
 		prev_health = health
 		timer.start()
 		health -= value
-		camera_animation_player.play("hurt")
-		camera_shake_component.add_trauma(value)
-		
-		parent.hit_stop(0.2,0.05)
+		if value > 0:
+			camera_animation_player.play("hurt")
+			camera_shake_component.add_trauma(value)
+			
+			parent.hit_stop(0.2,0.05)
 
 func fade_in():
 	var tween = get_tree().create_tween()

@@ -26,7 +26,7 @@ var is_pausing = false
 @onready var component = $component
 @onready var hand = $head/hand
 @onready var camera = $head/Camera3D
-@onready var bullet_marker = $head/Camera3D/BulletMarker
+@onready var text = $UserInterface/ui/text
 
 var mouse_movement
 

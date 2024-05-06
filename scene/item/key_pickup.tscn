@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf753ryu54cw2"]
+
+[ext_resource type="Script" path="res://script/health_pickup.gd" id="1_iqpbk"]
+[ext_resource type="Resource" uid="uid://bbv1jil1ln8ua" path="res://resource/Key.tres" id="2_ok1qg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_73ana"]
+size = Vector3(0.548828, 0.0986328, 0.616211)
+
+[sub_resource type="BoxMesh" id="BoxMesh_imhpy"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="key_pickup" type="Area3D"]
+script = ExtResource("1_iqpbk")
+item = ExtResource("2_ok1qg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_73ana")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_imhpy")

@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_toon,specular_toon;
 uniform vec4 albedo : source_color;
 uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
 uniform float point_size : hint_range(0,128);
@@ -29,10 +29,11 @@ void light() {
 	
 	vec2 hatching_uv = FRAGCOORD.xy / 1024.0 * 15.0;
 	vec2 scaled_uv = hatching_uv * (1.0 - attenuation_factor * (1.0 - intensity));
-	vec4 hatching = texture(hatching_texture, hatching_uv);
+	//vec4 hatching = texture(hatching_texture, hatching_uv);
 	
     // Output the final color
-    DIFFUSE_LIGHT += mix(gradient_color.rgb * LIGHT_COLOR,clamp(((gradient_color.rgb * hatching.rgb) * LIGHT_COLOR),0.0,1.0), hatching_visibility);
+    //DIFFUSE_LIGHT += mix(gradient_color.rgb * LIGHT_COLOR,clamp(((gradient_color.rgb * hatching.rgb) * LIGHT_COLOR),0.0,1.0), hatching_visibility);
+	DIFFUSE_LIGHT += mix(gradient_color.rgb * LIGHT_COLOR,clamp(((gradient_color.rgb) * LIGHT_COLOR),0.0,1.0), hatching_visibility);
 }
 
 void fragment() {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://d0jrql543whg2"]
+[gd_scene load_steps=94 format=3 uid="uid://d0jrql543whg2"]
 
 [ext_resource type="Material" uid="uid://y3uaqwwcfxgj" path="res://material/map/main_hall_3.tres" id="1_evr5g"]
 [ext_resource type="Script" path="res://script/scene/map_base.gd" id="1_wxjl7"]
@@ -8,11 +8,13 @@
 [ext_resource type="Material" uid="uid://bxbrtf2yivyxa" path="res://material/map/main_hall_4.tres" id="4_dldjb"]
 [ext_resource type="Texture2D" uid="uid://btu2xyils2mv3" path="res://texture/hatch3.png" id="4_m3fco"]
 [ext_resource type="Material" uid="uid://mckei8bhjvs2" path="res://material/map/main_hall_2.tres" id="5_3u0jq"]
-[ext_resource type="PackedScene" uid="uid://dn2nj7070mc5s" path="res://scene/player_spawn.tscn" id="5_7m86f"]
-[ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/change_scene_interaction_area.tscn" id="9_rhs2s"]
-[ext_resource type="PackedScene" uid="uid://wi43s1ruo2cb" path="res://scene/health_pickup.tscn" id="10_id85c"]
+[ext_resource type="PackedScene" uid="uid://dn2nj7070mc5s" path="res://scene/player_spawner.tscn" id="5_7m86f"]
+[ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/door_interaction_area.tscn" id="9_rhs2s"]
+[ext_resource type="PackedScene" uid="uid://wi43s1ruo2cb" path="res://scene/item/health_pickup.tscn" id="10_id85c"]
 [ext_resource type="Script" path="res://script/player_spawn.gd" id="11_btm3q"]
-[ext_resource type="PackedScene" uid="uid://cojqbjj6dlb2k" path="res://scene/poison_pickup.tscn" id="13_6c4rt"]
+[ext_resource type="PackedScene" uid="uid://cojqbjj6dlb2k" path="res://scene/item/poison_pickup.tscn" id="13_6c4rt"]
+[ext_resource type="PackedScene" uid="uid://cf753ryu54cw2" path="res://scene/item/key_pickup.tscn" id="14_dewas"]
+[ext_resource type="PackedScene" uid="uid://deyd5b18vnf0d" path="res://scene/item_spawner.tscn" id="15_wvx5x"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lo38p"]
 _surfaces = [{
@@ -1004,7 +1006,9 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map2/door_003/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_7fhxi")
 
-[node name="ChangeSceneInteractionArea" parent="map2" instance=ExtResource("9_rhs2s")]
+[node name="DoorInteractionArea" parent="map2" instance=ExtResource("9_rhs2s")]
+locked = true
+required_key = "key_one"
 
 [node name="door_004" type="MeshInstance3D" parent="map2"]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.98887, 7.27709, 2.55499)
@@ -1022,6 +1026,9 @@ mesh = SubResource("BoxMesh_36cyc")
 
 [node name="health_pickup" parent="." instance=ExtResource("10_id85c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263468, 0.193281, 17.9221)
+
+[node name="health_pickup2" parent="." instance=ExtResource("10_id85c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01734, 0.193281, 17.9221)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.263468, 0.720419, 17.9221)
@@ -1062,3 +1069,10 @@ spot_angle = 61.2662
 
 [node name="poison_pickup" parent="." instance=ExtResource("13_6c4rt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.72784, 0.260007, 17.8954)
+
+[node name="key_pickup" parent="." instance=ExtResource("14_dewas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8073, 0.157636, 17.927)
+
+[node name="ItemSpawner" parent="." instance=ExtResource("15_wvx5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.789282, -1.41773, 3.69197)
+item_name = "health_pickup"

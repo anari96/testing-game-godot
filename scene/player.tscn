@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=43 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -24,6 +24,7 @@
 [ext_resource type="Shader" path="res://material/shader/vignette.gdshader" id="21_isbjp"]
 [ext_resource type="Shader" path="res://material/shader/retro_psx.gdshader" id="22_sq8wx"]
 [ext_resource type="Script" path="res://script/menu/item_list.gd" id="22_x0hvi"]
+[ext_resource type="Script" path="res://script/menu/text.gd" id="23_4fxbh"]
 [ext_resource type="Shader" path="res://material/shader/poster.gdshader" id="23_50gll"]
 [ext_resource type="Shader" path="res://material/shader/retro.gdshader" id="24_uc2ps"]
 
@@ -517,6 +518,24 @@ one_shot = true
 [node name="FadeOutTimer" type="Timer" parent="UserInterface/ui/HealthBar"]
 wait_time = 3.0
 one_shot = true
+
+[node name="text" type="RichTextLabel" parent="UserInterface/ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = 59.0
+offset_right = 246.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]It's Locked[/center]"
+threaded = true
+script = ExtResource("23_4fxbh")
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 

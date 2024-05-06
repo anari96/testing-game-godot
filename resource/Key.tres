@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://bbv1jil1ln8ua"]
+
+[ext_resource type="Script" path="res://script/item.gd" id="1_p725p"]
+
+[resource]
+script = ExtResource("1_p725p")
+name = "key_one"
+type = 1
+description = "Description"
+heal_value = 0

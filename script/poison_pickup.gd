@@ -1,6 +1,4 @@
-extends Area3D
-
-@export var item:Item
+extends ItemPickup
 
 func use():
 	InventoryManager.add_item(item,1)

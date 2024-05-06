@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script/scene/map_base.gd" id="1_kdr4i"]
 [ext_resource type="Script" path="res://script/player_spawn.gd" id="2_stytp"]
-[ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/change_scene_interaction_area.tscn" id="3_fmws8"]
+[ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/door_interaction_area.tscn" id="3_fmws8"]
 [ext_resource type="Material" uid="uid://bxbrtf2yivyxa" path="res://material/map/main_hall_4.tres" id="5_txtrl"]
 [ext_resource type="Material" uid="uid://y3uaqwwcfxgj" path="res://material/map/main_hall_3.tres" id="6_toac0"]
 

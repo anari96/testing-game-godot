@@ -24,12 +24,7 @@ func set_scene(scene_name:String,_spawn_point_id = 1) -> void:
 		loaded_scene_name = path
 		loading_screen = loading_scene.instantiate()
 		get_tree().root.add_child(loading_screen)
-		#loading_screen
-	#current_scene.free()
-	#get_tree().root.add_child(new_scene.instantiate())
-	#current_scene = new_scene
-	#get_tree().change_scene_to_packed()
-	#get_tree().change_scene_to_file("res://scene/map/" + scene_name + ".tscn")
+
 func _process(delta):
 	if is_loading:
 		loaded_scene_status = ResourceLoader.load_threaded_get_status(loaded_scene_name,progress)
@@ -38,7 +33,6 @@ func _process(delta):
 			get_tree().change_scene_to_packed(new_scene)
 			is_loading = false
 			loading_screen.queue_free()
-			#
 
 func get_scene_list() -> Array:
 	var dir = DirAccess.open(scene_path)
