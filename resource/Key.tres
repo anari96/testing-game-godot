@@ -7,4 +7,3 @@ script = ExtResource("1_p725p")
 name = "key_one"
 type = 1
 description = "Description"
-heal_value = 0
