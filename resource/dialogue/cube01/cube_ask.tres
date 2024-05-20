@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://c5vqvtpij877d"]
+
+[ext_resource type="Script" path="res://script/dialogue.gd" id="1_relwv"]
+
+[resource]
+script = ExtResource("1_relwv")
+actor_id = "actor_name"
+topic = "How Are You?"
+text = Array[String](["You asked how am i?", "what a weird question", "Im fine."])
+disabled = false
+follow_up = Array[ExtResource("1_relwv")]([])

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://dw6ti8mdaq6yq"]
+
+[ext_resource type="Script" path="res://script/dialogue.gd" id="1_sr7tx"]
+
+[resource]
+script = ExtResource("1_sr7tx")
+actor_id = "actor_name"
+topic = "Good bye."
+text = Array[String](["Bye."])
+disabled = false
+follow_up = Array[ExtResource("1_sr7tx")]([])

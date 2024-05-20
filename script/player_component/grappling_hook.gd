@@ -19,11 +19,11 @@ func _input(event):
 			is_grappling = true
 			timer.start()
 
-func _physics_process(delta):
-	if is_grappling:
-		parent.disable()
-	else:
-		parent.enable()
+#func _physics_process(delta):
+	#if is_grappling:
+		#parent.disable()
+	#else:
+		#parent.enable()
 
 func set_grapple_point():
 	if raycast != null:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=45 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -14,18 +14,19 @@
 [ext_resource type="Script" path="res://script/player_component/dash.gd" id="10_6ihn3"]
 [ext_resource type="Script" path="res://script/player_component/mantling.gd" id="11_27xkv"]
 [ext_resource type="Script" path="res://script/player_component/view_roll.gd" id="12_2y42i"]
-[ext_resource type="Script" path="res://script/player_component/object_pickup.gd" id="13_xo01q"]
-[ext_resource type="Script" path="res://script/player_component/grappling_hook.gd" id="14_t2f0q"]
 [ext_resource type="Script" path="res://script/player_component/crouch.gd" id="15_iyrvt"]
 [ext_resource type="Script" path="res://script/pause_menu.gd" id="15_sh7ij"]
 [ext_resource type="Script" path="res://script/player_component/camera_shake.gd" id="17_fce2e"]
 [ext_resource type="Script" path="res://script/player_component/camera_movement.gd" id="19_2io21"]
 [ext_resource type="Script" path="res://script/player_component/interaction.gd" id="20_myqlk"]
 [ext_resource type="Shader" path="res://material/shader/vignette.gdshader" id="21_isbjp"]
+[ext_resource type="Script" path="res://script/dialogue_menu.gd" id="22_i3ix5"]
 [ext_resource type="Shader" path="res://material/shader/retro_psx.gdshader" id="22_sq8wx"]
+[ext_resource type="Script" path="res://script/menu/dialogue_list.gd" id="22_ukal8"]
 [ext_resource type="Script" path="res://script/menu/item_list.gd" id="22_x0hvi"]
 [ext_resource type="Script" path="res://script/menu/text.gd" id="23_4fxbh"]
 [ext_resource type="Shader" path="res://material/shader/poster.gdshader" id="23_50gll"]
+[ext_resource type="Script" path="res://script/menu/subtitle_container.gd" id="24_dxb5o"]
 [ext_resource type="Shader" path="res://material/shader/retro.gdshader" id="24_uc2ps"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_id44n"]
@@ -57,6 +58,9 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k0ok"]
 bg_color = Color(0.988235, 0, 0.27451, 1)
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5t81f"]
+bg_color = Color(0.054902, 0.054902, 0.054902, 0.54902)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uu0hn"]
 shader = ExtResource("21_isbjp")
@@ -198,12 +202,16 @@ light_energy = 0.5
 spot_range = 26.9957
 spot_angle = 61.2662
 
-[node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina", "movement")]
+[node name="WeaponRaycast" type="RayCast3D" parent="head/Camera3D"]
+target_position = Vector3(0, 0, -80)
+
+[node name="hand" type="Node3D" parent="head" node_paths=PackedStringArray("player", "stamina", "movement", "camera_raycast")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.450164, 0.137281)
 script = ExtResource("2_qnd4h")
 player = NodePath("../..")
 stamina = NodePath("../../component/stamina")
 movement = NodePath("../../component/move")
+camera_raycast = NodePath("../Camera3D/WeaponRaycast")
 
 [node name="WeaponGun" parent="head/hand" instance=ExtResource("4_ij58q")]
 
@@ -221,6 +229,7 @@ script = ExtResource("7_geae5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -1.26679)
 
 [node name="InteractRaycast" type="RayCast3D" parent="head"]
+visible = false
 target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 collide_with_bodies = false
@@ -230,10 +239,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.45001)
 visible = false
 
 [node name="GrappleRaycast" type="RayCast3D" parent="head"]
-visible = false
-target_position = Vector3(0, 0, -20)
-
-[node name="CoreCrystalRaycast" type="RayCast3D" parent="head"]
 visible = false
 target_position = Vector3(0, 0, -20)
 
@@ -305,14 +310,6 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="GrapplingHook" type="Node3D" parent="component" node_paths=PackedStringArray("raycast")]
-script = ExtResource("14_t2f0q")
-raycast = NodePath("../../head/GrappleRaycast")
-
-[node name="Timer" type="Timer" parent="component/GrapplingHook"]
-wait_time = 0.4
-one_shot = true
-
 [node name="mantling" type="Node3D" parent="component"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.777434, 0)
 script = ExtResource("11_27xkv")
@@ -327,10 +324,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.615134, -1.05599)
 script = ExtResource("12_2y42i")
 move = NodePath("../move")
 camera = NodePath("../../head/Camera3D")
-
-[node name="ObjectPickup" type="Node3D" parent="component"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77997, 0)
-script = ExtResource("13_xo01q")
 
 [node name="crouch" type="Node3D" parent="component" node_paths=PackedStringArray("animation_player")]
 script = ExtResource("15_iyrvt")
@@ -348,9 +341,11 @@ noise = SubResource("FastNoiseLite_c8fxr")
 script = ExtResource("19_2io21")
 camera = NodePath("../../head/Camera3D")
 
-[node name="Interaction" type="Node3D" parent="component" node_paths=PackedStringArray("interaction_raycast")]
+[node name="Interaction" type="Node3D" parent="component" node_paths=PackedStringArray("interaction_raycast", "label", "dialogue_box")]
 script = ExtResource("20_myqlk")
 interaction_raycast = NodePath("../../head/InteractRaycast")
+label = NodePath("../../UserInterface/ui/InteractionLabel")
+dialogue_box = NodePath("../../UserInterface/ui2")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 layer = 100
@@ -367,20 +362,19 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("15_sh7ij")
 player = NodePath("../..")
+metadata/_edit_lock_ = true
 
 [node name="HSplitContainer" type="HSplitContainer" parent="UserInterface/PauseMenu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -484.0
-offset_top = -365.0
-offset_right = -161.0
-offset_bottom = 365.0
-grow_horizontal = 2
+offset_left = 263.415
+offset_top = -405.0
+offset_right = 546.415
+offset_bottom = 405.0
 grow_vertical = 2
+dragger_visibility = 1
 
 [node name="SideNavigation" type="VBoxContainer" parent="UserInterface/PauseMenu/HSplitContainer"]
 layout_mode = 2
@@ -436,6 +430,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="StaminaBar" type="ProgressBar" parent="UserInterface/ui"]
 modulate = Color(1, 1, 1, 0)
@@ -446,10 +441,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -241.0
-offset_top = 247.0
-offset_right = 2.0
-offset_bottom = 257.0
+offset_left = -150.0
+offset_top = 375.0
+offset_right = 1.0
+offset_bottom = 394.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 1.6)
@@ -470,6 +465,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6inq4")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ry103")
 value = 75.88
 show_percentage = false
+metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="UserInterface/ui/StaminaBar"]
 wait_time = 0.3
@@ -488,9 +484,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = 312.0
+offset_top = 427.0
 offset_right = 150.0
-offset_bottom = 332.0
+offset_bottom = 447.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_3yx6p")
@@ -510,6 +506,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6inq4")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ry103")
 value = 100.0
 show_percentage = false
+metadata/_edit_lock_ = true
 
 [node name="Timer" type="Timer" parent="UserInterface/ui/HealthBar"]
 wait_time = 0.3
@@ -519,7 +516,7 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="text" type="RichTextLabel" parent="UserInterface/ui"]
+[node name="InteractionLabel" type="Label" parent="UserInterface/ui"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -532,10 +529,72 @@ offset_right = 246.0
 offset_bottom = 91.0
 grow_horizontal = 2
 grow_vertical = 2
-bbcode_enabled = true
-text = "[center]It's Locked[/center]"
-threaded = true
+text = "Interact"
+horizontal_alignment = 1
 script = ExtResource("23_4fxbh")
+
+[node name="ui2" type="Control" parent="UserInterface" groups=["interface"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("22_i3ix5")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UserInterface/ui2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -156.5
+offset_top = -434.0
+offset_right = 156.5
+offset_bottom = -328.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogueList" type="VBoxContainer" parent="UserInterface/ui2/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("22_ukal8")
+
+[node name="SubtitleContainer" type="PanelContainer" parent="UserInterface/ui2" node_paths=PackedStringArray("subtitle", "dialogue_list_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -211.0
+offset_top = -299.0
+offset_right = 211.0
+offset_bottom = -184.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5t81f")
+script = ExtResource("24_dxb5o")
+subtitle = NodePath("MarginContainer/CenterContainer/Subtitle")
+dialogue_list_container = NodePath("../ScrollContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/ui2/SubtitleContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UserInterface/ui2/SubtitleContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Subtitle" type="Label" parent="UserInterface/ui2/SubtitleContainer/MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec egestas ex. Duis interdum orci leo, rutrum cursus urna ornare sit amet."
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="PostProcessing" type="CanvasLayer" parent="."]
 

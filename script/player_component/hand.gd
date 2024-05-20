@@ -9,6 +9,7 @@ var mouse_movement : Vector2
 @export var player : CharacterBody3D
 @export var stamina : Node3D
 @export var movement : Node3D
+@export var camera_raycast : RayCast3D
 
 func _input(event):
 	if !player.is_pausing:

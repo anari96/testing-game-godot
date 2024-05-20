@@ -16,3 +16,4 @@ func populate():
 		item.item = items[i][0]
 		item.item_count = items[i][1]
 		add_child(item)
+	#print(items)

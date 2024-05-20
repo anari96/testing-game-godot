@@ -55,7 +55,7 @@ func hurt(value):
 		health -= value
 		if value > 0:
 			camera_animation_player.play("hurt")
-			camera_shake_component.add_trauma(value)
+			camera_shake_component.add_trauma(2.0)
 			
 			parent.hit_stop(0.2,0.05)
 

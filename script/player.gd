@@ -21,12 +21,14 @@ var is_crouching = false
 
 var is_freelook = true
 var is_pausing = false
+var is_talking = false
 
 @onready var head = $head
 @onready var component = $component
 @onready var hand = $head/hand
 @onready var camera = $head/Camera3D
 @onready var text = $UserInterface/ui/text
+@onready var subtitle_container = $UserInterface/ui2/SubtitleContainer
 
 var mouse_movement
 

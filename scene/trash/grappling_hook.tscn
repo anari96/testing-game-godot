@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://co486w6bg0a6j"]
+
+[ext_resource type="Script" path="res://script/player_component/grappling_hook.gd" id="1_hldeh"]
+
+[node name="GrapplingHook" type="Node3D" node_paths=PackedStringArray("raycast")]
+script = ExtResource("1_hldeh")
+raycast = NodePath("")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true

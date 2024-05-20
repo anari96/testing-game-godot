@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://po3taqbfn71p"]
+
+[ext_resource type="Script" path="res://script/item.gd" id="1_vooi0"]
+
+[resource]
+script = ExtResource("1_vooi0")
+name = "handgun_bullet"
+type = 3
+description = "Bullet for my handgun"

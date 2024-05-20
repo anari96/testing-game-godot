@@ -17,7 +17,8 @@ func remove():
 	queue_free()
 
 func _on_item_pressed():
-	if item.get_type_key() != "KEY":
+	#if item.get_type_key() != "KEY":
+	if !item.get_type_key() in ["KEY","AMMO"]:
 		use()
 		InventoryManager.remove_item(item.name)
 		if item_count == 1:

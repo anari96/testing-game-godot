@@ -12,7 +12,6 @@ func _ready():
 	path = "res://scene/item/" + item_name + ".tscn"
 	if can_spawn:
 		spawn()
-	
 
 func spawn():
 	ResourceLoader.load_threaded_request(path)

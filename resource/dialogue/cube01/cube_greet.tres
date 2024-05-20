@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=2 format=3 uid="uid://c0iq8v6qeuqju"]
+
+[ext_resource type="Script" path="res://script/dialogue.gd" id="1_15mps"]
+
+[resource]
+script = ExtResource("1_15mps")
+actor_id = "actor_name"
+topic = "Hello"
+text = Array[String](["Hello there."])
+disabled = false
+sound = Array[AudioStream]([])
+follow_up = Array[ExtResource("1_15mps")]([])

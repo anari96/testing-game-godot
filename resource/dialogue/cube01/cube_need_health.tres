@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Dialogue" load_steps=4 format=3 uid="uid://ck434aenihsyp"]
+
+[ext_resource type="Script" path="res://script/dialogue/give_medicine.gd" id="1_sir4j"]
+[ext_resource type="Script" path="res://script/dialogue.gd" id="1_v3hou"]
+[ext_resource type="AudioStream" uid="uid://cmgtaer0xn48s" path="res://export/here_you_go.ogg" id="3_63488"]
+
+[resource]
+script = ExtResource("1_v3hou")
+actor_id = "actor_name"
+topic = "Do you have any medicine?"
+text = Array[String](["Here you go.", "have a nice day."])
+disabled = false
+sound = Array[AudioStream]([ExtResource("3_63488"), null])
+follow_up = Array[ExtResource("1_v3hou")]([])
+effect = ExtResource("1_sir4j")

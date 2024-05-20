@@ -7,18 +7,14 @@ func _ready():
 	quit_button.pressed.connect(quit)
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") && PlayerManager.current_player.is_talking == false:
 		if player.is_pausing:
-			player.is_freelook = true
-			player.is_pausing = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			hide()
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		elif !player.is_pausing :
 			$HSplitContainer/VBoxContainer/item_container/item_list.populate()
-			player.is_freelook = false
-			player.is_pausing = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			show()
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _physics_process(delta):
 	if player.is_pausing:
@@ -31,6 +27,7 @@ func quit():
 
 func resume():
 	player.is_pausing = false
+	player.move.can_move = true
 
 func _on_resume_button_pressed():
 	resume()

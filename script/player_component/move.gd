@@ -2,11 +2,13 @@ extends Node3D
 
 var parent : Player
 
+var disable_input = false
+
 var can_fall = true
 var can_move = true
 var jump_count = 1
 var temp_jump_count = jump_count
-var input_dir
+var input_dir = Vector3()
 
 var is_moving
 var is_grounded = false
@@ -22,12 +24,15 @@ func _ready():
 	$Timer.timeout.connect(_on_timer_timeout)
 
 func _input(event):
+	if disable_input == false:
+		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	elif disable_input == true:
+		input_dir = Vector3()
 	if Input.is_action_pressed("move_forward") || Input.is_action_pressed("move_backward") || Input.is_action_pressed("move_left") || Input.is_action_pressed("move_right"):
 		is_moving = true
 
 	else:
 		is_moving = false
-
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -64,7 +69,6 @@ func _physics_process(delta):
 		parent.current_acceleration = 15.0
 		
 	
-	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if can_move:
 		if direction:
@@ -84,13 +88,15 @@ func disable():
 	parent.velocity = Vector3(0,0,0)
 	can_move = false
 	can_fall = false
+	print("disable")
 
 func enable():
 	can_move = true
 	can_fall = true
+	print("enable")
 
 func _on_timer_timeout():
-	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	#input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	parent.velocity.y = parent.JUMP_VELOCITY * 2.0
 	
