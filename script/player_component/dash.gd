@@ -12,6 +12,7 @@ var is_dashing = false
 func _ready():
 	$Timer.timeout.connect(_on_timer_timeout)
 	$invisibilityTimer.timeout.connect(_on_invsibility_timer_timeout)
+	$SlowTimer.timeout.connect(_on_slow_timer_timeout)
 
 # Called when the node enters the scene tree for the first time.
 func _input(event):
@@ -24,10 +25,10 @@ func _input(event):
 			is_dashing = true
 			$Timer.start()
 			input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-			if input_dir.x > 0:
-				camera_animation_player.play("dash_right")
-			elif input_dir.x < 0:
-				camera_animation_player.play("dash_left")
+			#if input_dir.x > 0:
+				#camera_animation_player.play("dash_right")
+			#elif input_dir.x < 0:
+				#camera_animation_player.play("dash_left")
 		if Input.is_action_just_pressed("move_dash") && move_component.is_moving == false:
 			parent.disable()
 			is_dashing = true
@@ -37,13 +38,25 @@ func _input(event):
 func _physics_process(delta):
 	if is_dashing == true:
 		var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		parent.velocity.x = direction.x * 10.0
-		parent.velocity.z = direction.z * 10.0
+		parent.velocity.x = direction.x * 6.4
+		parent.velocity.z = direction.z * 6.4
 		parent.move_and_slide()
 
 func _on_timer_timeout():
 	is_dashing = false
+	$SlowTimer.start()
 	parent.enable()
+	var tween = get_tree().create_tween()
+	tween.tween_property(parent, "velocity", Vector3.ZERO, 0.5)
+	#parent.velocity = Vector3.ZERO
+	parent.current_speed_modifier = parent.current_speed_modifier / 0.3
+	#parent.current_speed = parent.current_speed / 0.5
+
 
 func _on_invsibility_timer_timeout():
 	health.invinsibility(false)
+
+func _on_slow_timer_timeout():
+	#parent.current_acceleration = parent.ACCELERATION
+	parent.current_speed_modifier = parent.SPEED_MODIFIER
+	pass

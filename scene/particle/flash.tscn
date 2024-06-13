@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpweenvd13f2o"]
+
+[ext_resource type="Texture2D" uid="uid://c77hjnlll3qj6" path="res://texture/base2_2.png" id="1_2gbqb"]
+[ext_resource type="Script" path="res://script/particle/smoke_particle.gd" id="2_6dwfx"]
+
+[sub_resource type="Curve" id="Curve_ktv28"]
+_data = [Vector2(0, 0.120879), 1.62386, 1.62386, 0, 0, Vector2(0.0635838, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_el4pr"]
+curve = SubResource("Curve_ktv28")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fcrb8"]
+gravity = Vector3(0, 0, 0)
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_el4pr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbodi"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(5, 4, 1, 0.281)
+albedo_texture = ExtResource("1_2gbqb")
+
+[sub_resource type="QuadMesh" id="QuadMesh_s7yos"]
+material = SubResource("StandardMaterial3D_lbodi")
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+amount = 3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fcrb8")
+draw_pass_1 = SubResource("QuadMesh_s7yos")
+script = ExtResource("2_6dwfx")

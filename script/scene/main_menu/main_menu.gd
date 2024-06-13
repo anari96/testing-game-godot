@@ -1,7 +1,7 @@
 extends Node3D
 
-@onready var start_button = $CanvasLayer/Menu/Button
-@onready var quit_button = $CanvasLayer/Menu/Button2
+@onready var start_button = $CanvasLayer/Menu/PlayButton
+@onready var quit_button = $CanvasLayer/Menu/QuitButton
 
 func _ready():
 	start_button.pressed.connect(_on_start_button_pressed)

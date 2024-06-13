@@ -10,6 +10,7 @@ var is_spawning : bool
 
 func _ready():
 	path = "res://scene/item/" + item_name + ".tscn"
+	FactManager.apply_fact()
 	if can_spawn:
 		spawn()
 
@@ -24,4 +25,5 @@ func _process(delta):
 		if loaded_item_status == ResourceLoader.THREAD_LOAD_LOADED:
 			var item = ResourceLoader.load_threaded_get(path)
 			var instance = item.instantiate()
+			instance.spawner = self
 			add_child(instance)

@@ -13,7 +13,7 @@ config_version=5
 config/name="dungeoun_crawler"
 run/main_scene="res://scene/map/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-boot_splash/bg_color=Color(0.0941176, 0.247059, 0.345098, 1)
+boot_splash/bg_color=Color(0.304822, 0.28644, 0.581366, 1)
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,6 +23,7 @@ SpawnManager="*res://script/autoload/spawn_manager.gd"
 InventoryManager="*res://script/autoload/inventory_manager.gd"
 PlayerManager="*res://script/autoload/player_manager.gd"
 DialogueManager="*res://script/autoload/dialogue_manager.gd"
+FactManager="*res://script/autoload/fact_manager.gd"
 
 [display]
 
@@ -30,6 +31,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
 window/size/resizable=false
+window/size/borderless=true
 
 [editor]
 
@@ -40,6 +42,10 @@ version_control/autoload_on_startup=true
 
 import/blender/enabled=false
 import/fbx/enabled=false
+
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
 
 [input]
 

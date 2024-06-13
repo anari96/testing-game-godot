@@ -5,6 +5,7 @@ extends Control
 
 func _ready():
 	quit_button.pressed.connect(quit)
+	hide()
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel") && PlayerManager.current_player.is_talking == false:

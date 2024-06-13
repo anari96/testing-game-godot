@@ -36,6 +36,8 @@ func _ready():
 	fade_out_timer.timeout.connect(_on_fade_out_timer_timeout)
 	stamina_changed.connect(_on_stamina_changed)
 	stamina_full.connect(_on_stamina_full)
+	
+	fade_out_timer.start()
 
 func damage(value):
 	fade_in()

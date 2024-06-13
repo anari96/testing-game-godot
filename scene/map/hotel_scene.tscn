@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://d0jrql543whg2"]
+[gd_scene load_steps=92 format=3 uid="uid://d0jrql543whg2"]
 
 [ext_resource type="Material" uid="uid://y3uaqwwcfxgj" path="res://material/map/main_hall_3.tres" id="1_evr5g"]
 [ext_resource type="Script" path="res://script/scene/map_base.gd" id="1_wxjl7"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bsru0p46y5diu" path="res://scene/door_interaction_area.tscn" id="9_rhs2s"]
 [ext_resource type="Script" path="res://script/player_spawn.gd" id="11_btm3q"]
 [ext_resource type="PackedScene" uid="uid://du3r7bft8rs5t" path="res://scene/npc/cube.tscn" id="14_7c314"]
-[ext_resource type="PackedScene" uid="uid://cf753ryu54cw2" path="res://scene/item/key_pickup.tscn" id="14_dewas"]
 [ext_resource type="PackedScene" uid="uid://deyd5b18vnf0d" path="res://scene/item_spawner.tscn" id="15_wvx5x"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lo38p"]
@@ -1060,12 +1059,9 @@ light_energy = 0.5
 spot_range = 18.713
 spot_angle = 61.2662
 
-[node name="key_pickup" parent="." instance=ExtResource("14_dewas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8073, 0.157636, 17.927)
-
-[node name="ItemSpawner" parent="." instance=ExtResource("15_wvx5x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.789282, -1.41773, 3.69197)
-item_name = "health_pickup"
-
 [node name="Cube" parent="." instance=ExtResource("14_7c314")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521231, 0.425088, 19.1563)
+
+[node name="ItemSpawner" parent="." instance=ExtResource("15_wvx5x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76721, 0.159013, 17.9092)
+item_name = "key_pickup"

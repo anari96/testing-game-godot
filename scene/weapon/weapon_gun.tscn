@@ -1,10 +1,13 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxun0ixfth63f"]
+[gd_scene load_steps=30 format=3 uid="uid://dxun0ixfth63f"]
 
 [ext_resource type="Script" path="res://script/weapon/weapon_gun.gd" id="1_7nxqq"]
 [ext_resource type="Animation" uid="uid://cderke3ryfp3n" path="res://animation/arm/arm_equip.res" id="2_lhuxx"]
 [ext_resource type="Animation" uid="uid://cqfbloylwfdbl" path="res://animation/arm/arm_shoot.res" id="3_vmpcl"]
 [ext_resource type="Animation" uid="uid://edhop8860234" path="res://animation/arm/arm_reload.res" id="4_8et12"]
 [ext_resource type="Animation" uid="uid://b0xrab60l6t5i" path="res://animation/arm/arm_melee.res" id="5_ge2el"]
+[ext_resource type="AudioStream" uid="uid://bktgjliva3dh7" path="res://audio/gunshot.ogg" id="6_r2j5o"]
+[ext_resource type="Script" path="res://script/menu/crosshair.gd" id="7_8jssj"]
+[ext_resource type="Script" path="res://script/base/area_base.gd" id="8_2ajy8"]
 
 [sub_resource type="Shader" id="Shader_t4fwm"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
@@ -506,6 +509,9 @@ _data = {
 "arm_shoot": ExtResource("3_vmpcl")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ltq8c"]
+size = Vector3(0.68457, 0.730469, 0.431641)
+
 [node name="WeaponGun" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339454, -0.313547)
 script = ExtResource("1_7nxqq")
@@ -521,14 +527,14 @@ bones/0/name = "gun_root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 1.50996e-07, 1.50996e-07, 0, -1, 0, 1, 0, 2.38419e-07, -0.19964, -0.621832)
 bones/0/enabled = true
-bones/0/position = Vector3(3.45712, -2.44701, -2.35179)
-bones/0/rotation = Quaternion(0.0226851, 0.451572, -0.891841, 0.0137049)
+bones/0/position = Vector3(0.616628, -0.99704, -2.28059)
+bones/0/rotation = Quaternion(0.681998, 5.52157e-08, 5.14894e-08, 0.731354)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "gun_slide"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, -2.29208e-16, -6.63358e-15, 2.29209e-16, 1, 8.9407e-08, 6.63358e-15, -8.9407e-08, 1, 2.89908e-07, 0.637346, -0.183642)
 bones/1/enabled = true
-bones/1/position = Vector3(-1.2687e-07, 0.637345, -0.183642)
+bones/1/position = Vector3(1.67716e-07, 0.637346, -0.183642)
 bones/1/rotation = Quaternion(-4.47035e-08, -3.31679e-15, 1.14604e-16, 1)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "gun_magazine"
@@ -852,12 +858,73 @@ libraries = {
 }
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.456285, -0.175578, -1.12709)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.331782, -0.175578, -1.12709)
 light_energy = 0.0
 
 [node name="LightTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
 
+[node name="RateOfFireTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="SpreadResetTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="BulletMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129705, -0.896)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32402, -0.183392, -1.12268)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_r2j5o")
+volume_db = -12.0
+pitch_scale = 1.2
+bus = &"Sound Effect"
+
+[node name="Crosshair" type="Control" parent="." node_paths=PackedStringArray("top", "left", "bottom", "right")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_8jssj")
+top = NodePath("CenterContainer/Top")
+left = NodePath("CenterContainer/Left")
+bottom = NodePath("CenterContainer/Bottom")
+right = NodePath("CenterContainer/Right")
+
+[node name="CenterContainer" type="CenterContainer" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Top" type="Line2D" parent="Crosshair/CenterContainer"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Crosshair/CenterContainer"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Crosshair/CenterContainer"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Crosshair/CenterContainer"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 2.0
+
+[node name="MeleeArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.28747)
+script = ExtResource("8_2ajy8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeleeArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0852101, 0)
+shape = SubResource("BoxShape3D_ltq8c")

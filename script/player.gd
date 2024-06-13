@@ -7,12 +7,14 @@ const ACCELERATION = 10.0
 const DEACCELERATION = 10.0
 
 const SPEED = 4.0
+const SPEED_MODIFIER = 1.0
 const SPRINT_SPEED = 8.0
 const DASH_SPEED = 14.0
 const CROUCH_SPEED = 2.5
 const JUMP_VELOCITY = 5.2
 
-var current_speed = SPEED
+var current_speed_modifier = SPEED_MODIFIER
+var current_speed = SPEED * current_speed_modifier
 var current_acceleration = ACCELERATION
 var gravity = 12.0
 
@@ -29,6 +31,7 @@ var is_talking = false
 @onready var camera = $head/Camera3D
 @onready var text = $UserInterface/ui/text
 @onready var subtitle_container = $UserInterface/ui2/SubtitleContainer
+@onready var notification = $UserInterface/ui/ItemNotification
 
 var mouse_movement
 

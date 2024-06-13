@@ -44,7 +44,7 @@ func _physics_process(delta):
 			camera_movement_component.fall()
 			#screen_shake_component.add_trauma(1.0)
 		is_grounded = true
-		parent.current_speed = parent.SPEED
+		parent.current_speed = parent.SPEED * parent.current_speed_modifier
 		parent.current_acceleration = parent.ACCELERATION
 		temp_jump_count = jump_count
 	

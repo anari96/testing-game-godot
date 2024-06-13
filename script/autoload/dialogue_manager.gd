@@ -42,7 +42,6 @@ func start_text(text = []):
 func stop_text():
 	current_text_line = 0
 	current_text = []
-	current_dialogue.dialogue_effect()
 	PlayerManager.current_player.subtitle_container.hide()
 
 func next_text():

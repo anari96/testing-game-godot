@@ -1,6 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwo4u7p84qm71"]
+[gd_scene load_steps=8 format=3 uid="uid://cwo4u7p84qm71"]
 
 [ext_resource type="Script" path="res://script/scene/main_menu/main_menu.gd" id="1_1yfq3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3pb3a"]
+font_size = 120
+font_color = Color(1, 0.682353, 0.14902, 1)
+outline_size = 6
+outline_color = Color(0.583544, 0.343859, 6.73831e-07, 1)
+shadow_size = 10
+shadow_color = Color(1, 0.290196, 0, 0.780392)
+shadow_offset = Vector2(1.305, 2.26)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nom0d"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxyso"]
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+border_color = Color(0.959209, 0.720322, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhgvx"]
+bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nokl"]
+bg_color = Color(1, 1, 0, 0.0862745)
+border_color = Color(1, 0.756508, 0.190713, 1)
+
+[sub_resource type="Theme" id="Theme_ooupk"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 0.767895, 0.288239, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_nom0d")
+Button/styles/hover = SubResource("StyleBoxFlat_cxyso")
+Button/styles/normal = SubResource("StyleBoxFlat_nhgvx")
+Button/styles/pressed = SubResource("StyleBoxFlat_3nokl")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_1yfq3")
@@ -15,8 +49,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.270588, 0.32549, 1)
+color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 210
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/MarginContainer"]
+layout_mode = 2
+text = "PROJECT
+CASTLEBREAKER"
+label_settings = SubResource("LabelSettings_3pb3a")
 
 [node name="Menu" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
@@ -25,24 +76,36 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -73.0
-offset_top = 59.0
+offset_top = 94.0
 offset_right = 73.0
-offset_bottom = 219.0
+offset_bottom = 195.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Menu"]
+[node name="PlayButton" type="Button" parent="CanvasLayer/Menu"]
 layout_mode = 2
-text = "Play"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ooupk")
+theme_override_font_sizes/font_size = 22
+text = "PLAY"
 
-[node name="Button3" type="Button" parent="CanvasLayer/Menu"]
+[node name="SettingButton" type="Button" parent="CanvasLayer/Menu"]
 layout_mode = 2
-text = "Select Stage
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ooupk")
+theme_override_font_sizes/font_size = 22
+text = "OPTION"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_ooupk")
+theme_override_font_sizes/font_size = 22
+text = "QUIT
 "
-
-[node name="Button2" type="Button" parent="CanvasLayer/Menu"]
-layout_mode = 2
-text = "Quit"
 
 [node name="SceneSelect" type="Control" parent="CanvasLayer"]
 visible = false

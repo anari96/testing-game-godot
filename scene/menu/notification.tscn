@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca7fcv0b35vms"]
+
+[ext_resource type="Script" path="res://script/menu/notification.gd" id="1_ph403"]
+
+[node name="Notification" type="MarginContainer"]
+theme_override_constants/margin_left = 15
+script = ExtResource("1_ph403")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Added Health to Inventory"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.8

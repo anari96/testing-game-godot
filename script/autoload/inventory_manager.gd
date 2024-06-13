@@ -8,6 +8,8 @@ func add_item(_item,_count = 1) -> void:
 		items[item_index][1] += _count
 	else:
 		items.append([_item,_count])
+	PlayerManager.current_player.notification.new_notification(_item.name)
+	#FactManager.add_fact("add_item", _item.name)
 
 func remove_item(_item_name,_count = 1) -> void:
 	var item_index = find_item_index(_item_name)
