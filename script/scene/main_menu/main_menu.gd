@@ -10,7 +10,7 @@ func _ready():
 	#print(get_tree().get_nodes_in_group("interface"))
 	
 func _on_start_button_pressed():
-	SceneManager.set_scene("hotel_scene",2)
+	SceneManager.set_scene("main_hall",1)
 
 func _on_quit_button_pressed():
 	SceneManager.quit()

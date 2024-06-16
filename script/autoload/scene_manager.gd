@@ -12,8 +12,8 @@ var current_spawn_point_id
 
 var scene_path = "res://scene/map/"
 
-func _ready():
-	print(current_scene)
+#func _ready():
+	#print(current_scene)
 
 func set_scene(scene_name:String,_spawn_point_id = 1) -> void:
 	if !is_loading:
@@ -30,10 +30,18 @@ func _process(delta):
 		loaded_scene_status = ResourceLoader.load_threaded_get_status(loaded_scene_name,progress)
 		if loaded_scene_status == ResourceLoader.THREAD_LOAD_LOADED:
 			var new_scene = ResourceLoader.load_threaded_get(loaded_scene_name)
-			get_tree().change_scene_to_packed(new_scene)
-			is_loading = false
-			loading_screen.queue_free()
-
+			#new_scene.ready.connect(scene_initialization)
+			var new_scene_change = get_tree().change_scene_to_packed(new_scene)
+			await get_tree().create_timer(1.0).timeout
+			if new_scene_change == 0 :
+				scene_initialization()
+				is_loading = false
+				loading_screen.queue_free()
+			
+func scene_initialization():
+	SpawnManager.select_spawn_point(SceneManager.current_spawn_point_id)
+	print("scene_loaded")
+	
 func get_scene_list() -> Array:
 	var dir = DirAccess.open(scene_path)
 	var scenes = []

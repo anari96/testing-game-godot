@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://script/particle/smoke_particle.gd" id="2_6dwfx"]
 
 [sub_resource type="Curve" id="Curve_ktv28"]
-_data = [Vector2(0, 0.120879), 1.62386, 1.62386, 0, 0, Vector2(0.0635838, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.274725), 1.62386, 1.62386, 0, 0, Vector2(0.0635838, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_el4pr"]
@@ -12,7 +12,8 @@ curve = SubResource("Curve_ktv28")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fcrb8"]
 gravity = Vector3(0, 0, 0)
-scale_max = 1.3
+scale_min = 1.5
+scale_max = 1.7
 scale_curve = SubResource("CurveTexture_el4pr")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lbodi"]
