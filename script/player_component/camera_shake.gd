@@ -11,9 +11,9 @@ var max_z = 10.0
 var initial_rotation : Vector3
 
 
-var trauma_reduction_rate = 50.0
+var trauma_reduction_rate = 0
 var time = 0.0
-var trauma = 0.0
+var trauma = 100.0
 var noise_speed = 0.6
 
 var rng = RandomNumberGenerator.new()
@@ -23,12 +23,15 @@ func _ready():
 	
 func _process(delta):
 	time += delta
-	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
+	trauma = max(trauma - trauma_reduction_rate * delta, 0.0)
 	if trauma > 0.0:
-		
-		camera.rotation_degrees.x = initial_rotation.x + max_x * get_shake_intensity() * get_noise_from_seed(rng.randi_range(0, 10))
-		camera.rotation_degrees.y = initial_rotation.y + max_y * get_shake_intensity() * get_noise_from_seed(rng.randi_range(0, 10))
-		camera.rotation_degrees.z = initial_rotation.z + max_z * get_shake_intensity() * get_noise_from_seed(rng.randi_range(0, 10))
+		pass
+		#camera.rotation_degrees.x = initial_rotation.x + max_x * sine_wave()
+		#camera.rotation_degrees.y = initial_rotation.y + max_y * get_shake_intensity() * get_noise_from_seed(rng.randi_range(0, 10))
+		#camera.rotation_degrees.z = initial_rotation.z + max_z * get_shake_intensity() * get_noise_from_seed(rng.randi_range(0, 10))
+
+func sine_wave():
+	return sin(time)
 
 func add_trauma(_amount:float):
 	pass

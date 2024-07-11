@@ -14,7 +14,7 @@ var _state = State.IDLE
 @onready var rate_of_fire_timer = $RateOfFireTimer
 @onready var spread_reset_timer = $SpreadResetTimer
 @onready var crosshair = $Crosshair
-@onready var raycast = get_parent().camera_raycast
+@onready var raycast : RayCast3D = get_parent().camera_raycast
 @onready var spark_particle = preload("res://scene/particle/gpu_particles_3d.tscn")
 @onready var smoke_particle = preload("res://scene/particle/smoke_particle.tscn")
 @onready var flash_particle = preload("res://scene/particle/flash.tscn")
@@ -51,7 +51,6 @@ func _process(delta):
 			is_recovering_spread = false
 			crosshair.change_crosshair(current_spread)
 	#if player.velocity.length() > 0:
-	print( player.velocity.length())
 	animation_tree.set("parameters/gun_idle/Blend2/blend_amount", player.velocity.length() / 10)
 	#match _state:
 		#State.IDLE:
@@ -93,10 +92,14 @@ func remove() -> void:
 	hide()
 
 func shoot():
-	
 	var smoke_particle_instance = smoke_particle.instantiate()
 	var flash_particle_instance = flash_particle.instantiate()
 	var pos = raycast.get_collision_point()
+	var collider = raycast.get_collider()
+	print(collider)
+	if collider.get_node("Health") != null:
+		collider.get_node("Health").hurt(30)
+		print(collider.get_node("Health"))
 	can_shoot = false
 	rate_of_fire_timer.start()
 	audio_player.play()
@@ -137,7 +140,6 @@ func apply_spread():
 
 func set_animation_tree_state(state_name:String):
 	var animation_state_machine = animation_tree.get("parameters/playback")
-	print(animation_state_machine.get_current_node())
 	if state_name == animation_state_machine.get_current_node():
 		animation_state_machine.stop()
 		animation_state_machine.start(state_name)
@@ -164,3 +166,4 @@ func _on_animation_tree_animation_finished(anim_name):
 	if anim_name != "gun_idle":
 		#_set_state(State.IDLE)
 		set_animation_tree_state("gun_idle")
+

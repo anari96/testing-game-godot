@@ -88,12 +88,12 @@ func disable():
 	parent.velocity = Vector3(0,0,0)
 	can_move = false
 	can_fall = false
-	print("disable")
+	#print("disable")
 
 func enable():
 	can_move = true
 	can_fall = true
-	print("enable")
+	#print("enable")
 
 func _on_timer_timeout():
 	#input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")

@@ -1,0 +1,128 @@
+[gd_scene load_steps=18 format=3 uid="uid://cxnaypn6k6rdb"]
+
+[ext_resource type="Script" path="res://script/base/non_player_base.gd" id="1_xk3ct"]
+[ext_resource type="Script" path="res://script/base/area_base.gd" id="2_fftx7"]
+[ext_resource type="Script" path="res://script/npc/goal/attack_goal.gd" id="3_32y0x"]
+[ext_resource type="Script" path="res://script/npc/goal/relax_goal.gd" id="4_31o0i"]
+[ext_resource type="Script" path="res://script/npc/goal/destroy_target_goal.gd" id="4_xn83j"]
+[ext_resource type="Script" path="res://script/npc/action/shoot_action.gd" id="5_4xnj3"]
+[ext_resource type="Script" path="res://script/npc/action/chase_target_action.gd" id="6_2m31t"]
+[ext_resource type="Script" path="res://script/npc/component/health.gd" id="7_brpww"]
+[ext_resource type="Script" path="res://script/npc_component/detection.gd" id="8_f5pxu"]
+[ext_resource type="Script" path="res://script/npc/component/movement.gd" id="9_5draj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_75f6g"]
+radial_segments = 8
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1k21"]
+albedo_color = Color(2, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jmee4"]
+material = SubResource("StandardMaterial3D_p1k21")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wu8mu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ydtd2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k4ed6"]
+radius = 3.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tk4xa"]
+radius = 5.5
+
+[node name="NonPlayerBase" type="CharacterBody3D"]
+script = ExtResource("1_xk3ct")
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
+mesh = SubResource("CapsuleMesh_75f6g")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.107459, 0.508124, -0.429247)
+mesh = SubResource("SphereMesh_jmee4")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122234, 0.508124, -0.429247)
+mesh = SubResource("SphereMesh_jmee4")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0241675, 0.00826779, 0.0414767)
+shape = SubResource("CapsuleShape3D_wu8mu")
+
+[node name="GoalManager" type="Node" parent="."]
+
+[node name="GetNearTargetGoal" type="Node" parent="GoalManager"]
+script = ExtResource("3_32y0x")
+
+[node name="RelaxGoal" type="Node" parent="GoalManager"]
+script = ExtResource("4_31o0i")
+
+[node name="DestroyTargetGoal" type="Node" parent="GoalManager"]
+script = ExtResource("4_xn83j")
+
+[node name="ActionManager" type="Node" parent="."]
+
+[node name="ChaseTargetAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement")]
+script = ExtResource("6_2m31t")
+movement = NodePath("../../Movement")
+
+[node name="ShootAction" type="Node" parent="ActionManager"]
+script = ExtResource("5_4xnj3")
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
+script = ExtResource("7_brpww")
+hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area3D" parent="Health"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health/Hitbox"]
+shape = SubResource("BoxShape3D_ydtd2")
+
+[node name="Detection" type="Node" parent="." node_paths=PackedStringArray("DetectionTimer", "DetectionArea", "target_raycast", "movement")]
+script = ExtResource("8_f5pxu")
+DetectionTimer = NodePath("../DetectionTimer")
+DetectionArea = NodePath("../DetectionArea")
+target_raycast = NodePath("../TargetRayCast")
+movement = NodePath("../Movement")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("navigation_agent", "detection")]
+script = ExtResource("9_5draj")
+navigation_agent = NodePath("../NavigationAgent3D")
+detection = NodePath("../Detection")
+
+[node name="AttackRangeArea" type="Area3D" parent="."]
+collision_mask = 8
+script = ExtResource("2_fftx7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRangeArea"]
+shape = SubResource("SphereShape3D_k4ed6")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_mask = 8
+script = ExtResource("2_fftx7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("SphereShape3D_tk4xa")
+
+[node name="ProjectileMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.273626, -1.084)
+
+[node name="TargetRayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -10)
+
+[node name="DetectionTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = -0.3
