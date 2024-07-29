@@ -9,7 +9,7 @@ extends CharacterBody3D
 var _goal
 var _plan
 var _plan_step
-var SPEED = 1.4
+var SPEED = 4
 var ACCELERATION = 1.0
 var SPEED_MODIFIER = 1.0
 @export var states : Dictionary
@@ -28,7 +28,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	var goal = get_best_goal()
-	if state["is_in_animation"] == false:
+	if state["is_in_animation"] == false: #process will be halted if animation is playing
 		if goal != _goal || _goal == null:
 			_goal = goal
 			# This blackboard are used to store information used for creating plans,
@@ -52,7 +52,6 @@ func _process(delta):
 			follow_plan(_plan,delta)
 
 func follow_plan(plan,delta):
-	#if state["is_in_animation"] == false: #plan will be halted if animation is playing
 	if plan.size() == 0:
 		return
 	

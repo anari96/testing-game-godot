@@ -11,9 +11,9 @@ func validity():
 
 func priority():
 	if detection.distance_to_target() <= 10.0:
-		return 13
+		return 10
 	else:
-		return 1
+		return 5
 
 func desired_state():
 	return {

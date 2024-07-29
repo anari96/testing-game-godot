@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=42 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dxun0ixfth63f" path="res://scene/weapon/weapon_gun.tscn" id="4_ij58q"]
 [ext_resource type="Script" path="res://script/player_component/health.gd" id="4_j1cpd"]
 [ext_resource type="Script" path="res://script/player_component/stamina.gd" id="5_jv5rv"]
+[ext_resource type="PackedScene" uid="uid://b88ih5u6k4oay" path="res://scene/weapon/weapon_wrench.tscn" id="6_ye1gw"]
 [ext_resource type="Script" path="res://script/player_component/wall_detector.gd" id="9_jc8q5"]
 [ext_resource type="Script" path="res://script/player_component/dash.gd" id="10_6ihn3"]
 [ext_resource type="Script" path="res://script/player_component/mantling.gd" id="11_27xkv"]
@@ -187,6 +188,8 @@ camera_raycast = NodePath("../Camera3D/WeaponRaycast")
 
 [node name="WeaponGun" parent="head/hand" instance=ExtResource("4_ij58q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0185806, 0)
+
+[node name="WeaponWrench" parent="head/hand" instance=ExtResource("6_ye1gw")]
 
 [node name="InteractRaycast" type="RayCast3D" parent="head"]
 visible = false

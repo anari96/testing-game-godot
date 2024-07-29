@@ -1,8 +1,8 @@
 extends Weapon
 
-@onready var animation_player = $ShortSword/AnimationPlayer
-@onready var cooldown_timer = $cooldownTimer
-@onready var attack_level_cooldown_timer = $attackLevelCooldownTimer
+@export var animation_player : AnimationPlayer
+@export var cooldown_timer : Timer
+@export var attack_level_cooldown_timer : Timer
 @export var hurtbox : Area3D
 @onready var hand_parent = get_parent()
 

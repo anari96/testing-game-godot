@@ -1972,8 +1972,13 @@ shape = SubResource("CapsuleShape3D_wu8mu")
 script = ExtResource("4_xn83j")
 detection = NodePath("../../Detection")
 
-[node name="MinimizeDangerGoal" type="Node" parent="GoalManager"]
+[node name="MinimizeDangerGoal" type="Node" parent="GoalManager" node_paths=PackedStringArray("detection")]
 script = ExtResource("3_2gagn")
+detection = NodePath("../../Detection")
+
+[node name="DodgeGoal" type="Node" parent="GoalManager" node_paths=PackedStringArray("detection")]
+script = ExtResource("3_ica8u")
+detection = NodePath("../../Detection")
 
 [node name="RelaxGoal" type="Node" parent="GoalManager"]
 script = ExtResource("4_31o0i")
@@ -1998,11 +2003,6 @@ script = ExtResource("6_2m31t")
 movement = NodePath("../../Movement")
 detection = NodePath("../../Detection")
 
-[node name="GoToNodeAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement", "detection")]
-script = ExtResource("7_t8k7v")
-movement = NodePath("../../Movement")
-detection = NodePath("../../Detection")
-
 [node name="DodgeAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement")]
 script = ExtResource("9_aine8")
 movement = NodePath("../../Movement")
@@ -2017,6 +2017,11 @@ detection = NodePath("../../Detection")
 [node name="ShootAction" type="Node" parent="InactiveAction" node_paths=PackedStringArray("projectile")]
 script = ExtResource("5_4xnj3")
 projectile = NodePath("../../Attack")
+
+[node name="GoToNodeAction" type="Node" parent="InactiveAction" node_paths=PackedStringArray("movement", "detection")]
+script = ExtResource("7_t8k7v")
+movement = NodePath("../../Movement")
+detection = NodePath("../../Detection")
 
 [node name="Health" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("7_brpww")

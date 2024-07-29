@@ -3413,7 +3413,13 @@ shape = SubResource("ConcavePolygonShape3D_km7lm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.935, 2.19418, 27.4345)
 
 [node name="NonPlayerBase" parent="." instance=ExtResource("4_sipa2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.8156, 1.55866, 11.3499)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9286, 1.55866, 11.3499)
+
+[node name="NonPlayerBase2" parent="." instance=ExtResource("4_sipa2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7847, 1.55866, 11.3499)
+
+[node name="NonPlayerBase3" parent="." instance=ExtResource("4_sipa2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7847, 1.55866, 7.25388)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w62tn")
