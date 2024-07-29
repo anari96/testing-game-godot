@@ -40,6 +40,8 @@ func _ready():
 	fade_out_timer.start()
 
 func damage(value):
+	if stamina < 0:
+		stamina = 0
 	fade_in()
 	fade_out_timer.stop()
 	emit_signal("stamina_changed")
@@ -51,7 +53,7 @@ func damage(value):
 	timer.start()
 
 func fade_out():
-	CanvasItem.modulate = Color(1,1,1,0)
+	CanvasItem.modulate = Color(1,1,1,1)
 
 func regenerate(rate,delta):
 	stamina += rate * delta
@@ -75,4 +77,4 @@ func fade_in():
 
 func _on_fade_out_timer_timeout():
 	var tween = get_tree().create_tween()
-	tween.tween_property(stamina_bar,"modulate:a", 0.0,0.5)
+	tween.tween_property(stamina_bar,"modulate:a", 1.0,0.5)

@@ -31,10 +31,10 @@ func _input(event):
 		elif Input.is_action_just_pressed("key_3"):
 			change_equip(2)
 
-		if Input.is_action_just_pressed("scroll_down"):
-			prev_equip(equip_index)
-		if Input.is_action_just_pressed("scroll_up"):
-			next_equip(equip_index)
+		#if Input.is_action_just_pressed("scroll_down"):
+			#prev_equip(equip_index)
+		#if Input.is_action_just_pressed("scroll_up"):
+			#next_equip(equip_index)
 
 func select_equip(index):
 	if get_child(index) != null:

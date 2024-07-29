@@ -96,10 +96,12 @@ func shoot():
 	var flash_particle_instance = flash_particle.instantiate()
 	var pos = raycast.get_collision_point()
 	var collider = raycast.get_collider()
-	print(collider)
-	if collider.get_node("Health") != null:
-		collider.get_node("Health").hurt(30)
-		print(collider.get_node("Health"))
+	if collider != null:
+		if collider.get_node("Health") != null:
+			collider.get_node("Health").hurt(30)
+			print(collider.get_node("Health"))
+		if collider.get_node("Detection") != null:
+			collider.get_node("Detection")._target = get_parent().get_parent().get_parent() #set player as the target
 	can_shoot = false
 	rate_of_fire_timer.start()
 	audio_player.play()

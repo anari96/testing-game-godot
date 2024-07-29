@@ -16,8 +16,8 @@ func _ready():
 
 # Called when the node enters the scene tree for the first time.
 func _input(event):
-	if stamina.stamina >= stamina_usage:
-		if Input.is_action_just_pressed("move_dash"):
+	if stamina.stamina >= 1 && parent.is_on_floor():
+		if Input.is_action_just_pressed("move_dash") && is_dashing == false:
 			health.invinsibility(true)
 			$invisibilityTimer.start()
 			stamina.damage(stamina_usage)
@@ -29,7 +29,7 @@ func _input(event):
 				#camera_animation_player.play("dash_right")
 			#elif input_dir.x < 0:
 				#camera_animation_player.play("dash_left")
-		if Input.is_action_just_pressed("move_dash") && move_component.is_moving == false:
+		if Input.is_action_just_pressed("move_dash") && move_component.is_moving == false && is_dashing == false:
 			parent.disable()
 			is_dashing = true
 			$Timer.start()

@@ -9,17 +9,18 @@ extends CharacterBody3D
 var _goal
 var _plan
 var _plan_step
-var SPEED = 1.0
+var SPEED = 1.4
 var ACCELERATION = 1.0
 var SPEED_MODIFIER = 1.0
 @export var states : Dictionary
 var state = {
-	"is_alerted" = false,
-	"is_moving" = false,
-	"is_in_melee_range" = false,
-	"is_in_shooting_range" = false,
+	"is_near_target" = false,
+	"is_target_visible" = false,
 	"is_aimed" = false,
-	"low_health" = false
+	"is_hiding" = false,
+	"low_health" = false,
+	"can_shoot" = true,
+	"is_in_animation" = false
 }
 
 func _physics_process(delta):
@@ -27,35 +28,42 @@ func _physics_process(delta):
 
 func _process(delta):
 	var goal = get_best_goal()
-	if goal != _goal || _goal == null:
-		_goal = goal
-		# This blackboard are used to store information used for creating plans,
-		# every current state will be saved inside this blackboard
-		# but information other that the states could be included
-		var blackboard = {
-			"position" : position,
-			"health" : $Health.health,
-			"target_position" : $Detection._target.position
-		}
-		for s in state:
-			blackboard[s] = state[s]
-		
-		if _goal != null:
-			_plan = get_plan(_goal,blackboard)
-		_plan_step = 0
-		#print(goal)
-		#print(blackboard)
-		#print(_plan)
-	else:
-		follow_plan(_plan,delta)
+	if state["is_in_animation"] == false:
+		if goal != _goal || _goal == null:
+			_goal = goal
+			# This blackboard are used to store information used for creating plans,
+			# every current state will be saved inside this blackboard
+			# but information other that the states could be included
+			var blackboard = {
+				"position" : position,
+				"health" : $Health.health
+				#"target_position" : $Detection._target.position
+			}
+			for s in state:
+				blackboard[s] = state[s]
+			
+			if _goal != null:
+				_plan = get_plan(_goal,blackboard)
+			_plan_step = 0
+			print(goal)
+			print(blackboard)
+			print(_plan)
+		elif _goal != null:
+			follow_plan(_plan,delta)
 
 func follow_plan(plan,delta):
+	#if state["is_in_animation"] == false: #plan will be halted if animation is playing
 	if plan.size() == 0:
 		return
-		
+	
+
 	var is_step_complete = plan[_plan_step].execute(delta)
 	if is_step_complete and _plan_step < plan.size() - 1:
+		print("action completed")
 		_plan_step += 1
+	elif is_step_complete && _plan_step == plan.size() - 1:
+		print("goal completed")
+		_goal = null
 
 func get_best_goal():
 	#if best_goal == null || best_goal != _goal
@@ -80,7 +88,6 @@ func find_best_plan(goal,desired_state,blackboard):
 	
 	if create_plans(root,blackboard.duplicate()):
 		var plans = plan_tree_into_array(root,blackboard)
-		print("finding plan")
 		print(plans)
 		return get_cheapest_plan(plans)
 	return []
@@ -94,7 +101,6 @@ func get_cheapest_plan(plans):
 	return cheapest_plan.actions
 
 func create_plans(plan,blackboard):
-	print("creating plan")
 	var repeat = false #for looping the function over again
 	
 	# every node in the tree will have its own state for the action to satisfy
@@ -114,14 +120,12 @@ func create_plans(plan,blackboard):
 		var could_use_action = false
 		var node_desired_state = node_state.duplicate()
 		var action_desired_state = action.desired_state()
-		print(action)
 		for s in node_desired_state:
-			print(node_desired_state)
-			print(action_desired_state)
 			if node_desired_state[s] == action_desired_state.get(s):
 				action_desired_state.erase(s)
 				could_use_action = true
-		#print(could_use_action)
+		
+		# compare all the state to if it can be used or not
 		if could_use_action:
 			var required_states = action.required_state()
 			for state in required_states:
@@ -146,12 +150,13 @@ func plan_tree_into_array(plan,blackboard):
 	var plans = []
 	
 	if plan.children.size() == 0:
-		plans.push_back({"actions": [plan.action], "cost": [plan.action.get_cost(blackboard)]})
+		plans.push_back({"actions": [plan.action], "cost": plan.action.get_cost(blackboard)})
 	
 	for p in plan.children:
 		for child_plan in plan_tree_into_array(p, blackboard):
 			if plan.action.has_method("get_cost"):
-				child_plan.action.push_back(plan.action)
+				print(plan)
+				child_plan.actions.push_back(plan.action)
 				child_plan.cost += plan.action.get_cost(blackboard)
 			plans.push_back(child_plan)
 	return plans

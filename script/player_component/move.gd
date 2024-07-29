@@ -18,7 +18,7 @@ var is_grounded = false
 @export var screen_shake_component:Node3D
 @export var camera_animation_player:AnimationPlayer
 @export var camera_movement_component:Node3D
-
+@export var crouch : Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Timer.timeout.connect(_on_timer_timeout)
@@ -55,6 +55,9 @@ func _physics_process(delta):
 		parent.current_acceleration = parent.AIR_ACCELERATION
 	# Handle jump.
 	if Input.is_action_just_pressed("move_jump"):
+		if crouch.is_crouching:
+			crouch.is_crouching = false
+			crouch.emit_signal("state_changed", false)
 		if parent.is_on_floor():
 			camera_movement_component.jump()
 			#screen_shake_component.add_trauma(1.0)
@@ -68,7 +71,9 @@ func _physics_process(delta):
 		parent.current_speed = parent.SPRINT_SPEED
 		parent.current_acceleration = 15.0
 		
-	
+	if crouch.is_crouching:
+		parent.current_speed = parent.CROUCH_SPEED
+		
 	var direction = (parent.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if can_move:
 		if direction:

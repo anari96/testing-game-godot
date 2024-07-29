@@ -541,7 +541,7 @@ wait_time = 0.05
 one_shot = true
 
 [node name="RateOfFireTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.1
 one_shot = true
 
 [node name="SpreadResetTimer" type="Timer" parent="."]
@@ -556,13 +556,8 @@ volume_db = -12.0
 pitch_scale = 1.2
 bus = &"Sound Effect"
 
-[node name="Crosshair" type="Control" parent="." node_paths=PackedStringArray("top", "left", "bottom", "right")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Crosshair" type="CanvasLayer" parent="." node_paths=PackedStringArray("top", "left", "bottom", "right")]
+layer = 3
 script = ExtResource("7_8jssj")
 top = NodePath("CenterContainer/Top")
 left = NodePath("CenterContainer/Left")
@@ -570,7 +565,6 @@ bottom = NodePath("CenterContainer/Bottom")
 right = NodePath("CenterContainer/Right")
 
 [node name="CenterContainer" type="CenterContainer" parent="Crosshair"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

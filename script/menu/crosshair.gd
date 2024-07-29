@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @export var top : Line2D
 @export var left : Line2D

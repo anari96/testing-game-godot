@@ -1,19 +1,14 @@
 extends Action
 
 @onready var actor = get_parent().get_parent()
+@export var projectile:Node
+var max_projectile = 1
 
 func get_cost(blackboard):
-	return 2
-
-func validity():
-	if actor.get_node("Detection")._target != null:
-		return true
-	else:
-		return false
+	return 1
 
 func required_state():
 	return {
-		"is_in_shooting_range" = true,
 		"can_shoot" = true
 	}
 
@@ -23,4 +18,5 @@ func desired_state():
 	}
 
 func execute(_delta):
-	print(name)
+	projectile.shoot()
+	return true

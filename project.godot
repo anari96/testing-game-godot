@@ -27,7 +27,11 @@ FactManager="*res://script/autoload/fact_manager.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/size/resizable=false
+window/vsync/vsync_mode=0
 
 [editor]
 
@@ -209,3 +213,8 @@ interact={
 3d_physics/layer_5="enemy"
 3d_physics/layer_6="physic"
 3d_physics/layer_7="interactable"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+global_illumination/gi/use_half_resolution=true

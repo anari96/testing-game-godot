@@ -29,7 +29,7 @@ var is_talking = false
 @onready var component = $component
 @onready var hand = $head/hand
 @onready var camera = $head/Camera3D
-@onready var text = $UserInterface/ui/text
+#@onready var text = $UserInterface/ui/text
 @onready var subtitle_container = $UserInterface/ui2/SubtitleContainer
 @onready var notification = $UserInterface/ui/ItemNotification
 

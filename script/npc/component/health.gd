@@ -4,7 +4,7 @@ extends Node
 
 var health:int = 100
 
-var low_health_warning = 30
+var low_health_warning = 40
 
 func _process(delta):
 	if health <= 0:
