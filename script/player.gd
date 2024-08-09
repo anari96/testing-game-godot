@@ -3,10 +3,10 @@ extends CharacterBody3D
 
 const DASH_ACCELERATION = 30.0
 const AIR_ACCELERATION = 0.5
-const ACCELERATION = 10.0
+const ACCELERATION = 2.0
 const DEACCELERATION = 10.0
 
-const SPEED = 4.0
+const SPEED = 3.0
 const SPEED_MODIFIER = 1.0
 const SPRINT_SPEED = 8.0
 const DASH_SPEED = 14.0

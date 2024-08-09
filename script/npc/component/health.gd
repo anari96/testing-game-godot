@@ -2,7 +2,7 @@ extends Node
 
 @export var hitbox : Area3D
 
-var health:int = 100
+var health:int = 370
 
 var low_health_warning = 40
 

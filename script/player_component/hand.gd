@@ -11,14 +11,14 @@ var mouse_movement : Vector2
 @export var movement : Node3D
 @export var camera_raycast : RayCast3D
 
-func _input(event):
+func _process(delta):
 	if !player.is_pausing:
-		if event is InputEventMouseMotion:
-			mouse_movement = event.relative
-		if Input.is_action_just_pressed("use1"):
+		
+		if Input.is_action_pressed("use1"):
+			print("fuckwad")
 			if get_child(equip_index) != null:
 				get_child(equip_index).use1()
-		if Input.is_action_just_pressed("use2"):
+		if Input.is_action_pressed("use2"):
 			if get_child(equip_index) != null:
 				get_child(equip_index).use2()
 		if Input.is_action_just_pressed("use3"):
@@ -30,6 +30,28 @@ func _input(event):
 			change_equip(1)
 		elif Input.is_action_just_pressed("key_3"):
 			change_equip(2)
+
+func _input(event):
+	pass
+	if !player.is_pausing:
+		if event is InputEventMouseMotion:
+			mouse_movement = event.relative
+		#if Input.is_action_pressed("use1"):
+			#print("fuckwad")
+			#if get_child(equip_index) != null:
+				#get_child(equip_index).use1()
+		#if Input.is_action_pressed("use2"):
+			#if get_child(equip_index) != null:
+				#get_child(equip_index).use2()
+		#if Input.is_action_just_pressed("use3"):
+			#if get_child(equip_index) != null:
+				#get_child(equip_index).use3()
+		#if Input.is_action_just_pressed("key_1"):
+			#change_equip(0)
+		#elif Input.is_action_just_pressed("key_2"):
+			#change_equip(1)
+		#elif Input.is_action_just_pressed("key_3"):
+			#change_equip(2)
 
 		#if Input.is_action_just_pressed("scroll_down"):
 			#prev_equip(equip_index)

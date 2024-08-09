@@ -2,7 +2,7 @@ extends Node3D
 
 var parent : Player
 var input_dir
-var stamina_usage = 33
+var stamina_usage = 43
 var is_dashing = false
 @export var move_component:Node3D
 @export var camera_animation_player:AnimationPlayer

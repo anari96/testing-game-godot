@@ -17,5 +17,6 @@ func priority():
 
 func desired_state():
 	return {
+		"is_tracking_target" = true,
 		"win" = true,
 	}

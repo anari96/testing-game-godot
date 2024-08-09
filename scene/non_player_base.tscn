@@ -1,14 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://cxnaypn6k6rdb"]
+[gd_scene load_steps=35 format=3 uid="uid://cxnaypn6k6rdb"]
 
 [ext_resource type="Script" path="res://script/base/non_player_base.gd" id="1_xk3ct"]
+[ext_resource type="Animation" uid="uid://c1biuk1i1g6pl" path="res://export/animation/dodge_left_faster.res" id="2_ciycj"]
 [ext_resource type="Script" path="res://script/base/area_base.gd" id="2_fftx7"]
-[ext_resource type="Script" path="res://script/npc/goal/minimize_danger_goal.gd" id="3_2gagn"]
-[ext_resource type="Script" path="res://script/npc/goal/attack_goal.gd" id="3_32y0x"]
-[ext_resource type="Script" path="res://script/npc/goal/dodge_goal.gd" id="3_ica8u"]
-[ext_resource type="Script" path="res://script/npc/goal/relax_goal.gd" id="4_31o0i"]
+[ext_resource type="Animation" uid="uid://enprccee5uhy" path="res://export/animation/dodge_right_faster.res" id="3_iiv6g"]
 [ext_resource type="Script" path="res://script/npc/goal/destroy_target_goal.gd" id="4_xn83j"]
-[ext_resource type="Script" path="res://script/npc/action/shoot_action.gd" id="5_4xnj3"]
-[ext_resource type="Script" path="res://script/npc/goal/hide_goal.gd" id="5_eswt2"]
 [ext_resource type="Script" path="res://script/npc/action/go_to_target_action.gd" id="6_2m31t"]
 [ext_resource type="Script" path="res://script/npc/action/melee_action.gd" id="7_beru8"]
 [ext_resource type="Script" path="res://script/npc/component/health.gd" id="7_brpww"]
@@ -17,6 +13,8 @@
 [ext_resource type="Script" path="res://script/npc/component/movement.gd" id="9_5draj"]
 [ext_resource type="Script" path="res://script/npc/action/dodge_action.gd" id="9_aine8"]
 [ext_resource type="Script" path="res://script/npc/component/projectile.gd" id="10_gxlm2"]
+[ext_resource type="Script" path="res://script/npc/action/engage_target_action.gd" id="12_m6105"]
+[ext_resource type="Script" path="res://script/npc/action/disengage_target_action.gd" id="13_bkkqe"]
 [ext_resource type="Script" path="res://script/npc/component/animation.gd" id="17_pqyy2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5iwi8"]
@@ -324,6 +322,63 @@ tracks/27/path = NodePath("character/Skeleton3D:legpole.R")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = PackedFloat32Array(0, 1, -0.212509, -0.758759, 0.480876)
+tracks/28/type = "method"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("../Detection")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"turn_on_target_tracking"
+}, {
+"args": [],
+"method": &"turn_off_target_tracking"
+}]
+}
+tracks/29/type = "method"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("../Attack")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0.45, 0.525),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"turn_on_area"
+}, {
+"args": [],
+"method": &"turn_off_area"
+}]
+}
+tracks/30/type = "method"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("../Movement")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"turn_off_movement_process"
+}, {
+"args": [],
+"method": &"turn_on_movement_process"
+}, {
+"args": [],
+"method": &"turn_off_movement_process"
+}, {
+"args": [],
+"method": &"turn_on_movement_process"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_veb6j"]
 resource_name = "dodge"
@@ -1726,12 +1781,14 @@ tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = PackedFloat32Array(0, 1, -1.04382, 0.91467, -0.975578)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_c0d1q"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ueo6d"]
 _data = {
 "attack1": SubResource("Animation_c3116"),
 "dodge": SubResource("Animation_veb6j"),
 "dodge_left": SubResource("Animation_ib70x"),
+"dodge_left_faster": ExtResource("2_ciycj"),
 "dodge_right": SubResource("Animation_ia1sp"),
+"dodge_right_faster": ExtResource("3_iiv6g"),
 "idle": SubResource("Animation_jphd3"),
 "reference": SubResource("Animation_r1dgm"),
 "run": SubResource("Animation_hxnyb"),
@@ -1757,12 +1814,12 @@ radius = 5.5
 [node name="NonPlayerBase" type="CharacterBody3D" groups=["npc"]]
 script = ExtResource("1_xk3ct")
 
-[node name="lighthead" type="Node3D" parent="."]
+[node name="walker" type="Node3D" parent="."]
 transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 0, 0, 0)
 
-[node name="character" type="Node3D" parent="lighthead"]
+[node name="character" type="Node3D" parent="walker"]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="lighthead/character"]
+[node name="Skeleton3D" type="Skeleton3D" parent="walker/character"]
 bones/0/name = "body"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0.999591, -0.0285972, 0, 0.0285972, 0.999591, -5.96046e-08, 0, -1.49012e-08)
@@ -1953,13 +2010,13 @@ bones/26/position = Vector3(-1.04382, 0.91467, -0.975578)
 bones/26/rotation = Quaternion(-0.129671, -0.695115, 0.695115, 0.129672)
 bones/26/scale = Vector3(1, 1, 1)
 
-[node name="Cube_005" type="MeshInstance3D" parent="lighthead/character/Skeleton3D"]
+[node name="Cube_005" type="MeshInstance3D" parent="walker/character/Skeleton3D"]
 mesh = SubResource("ArrayMesh_5pxtp")
 skin = SubResource("Skin_rbwa0")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="lighthead"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="walker"]
 libraries = {
-"": SubResource("AnimationLibrary_c0d1q")
+"": SubResource("AnimationLibrary_ueo6d")
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -1972,36 +2029,23 @@ shape = SubResource("CapsuleShape3D_wu8mu")
 script = ExtResource("4_xn83j")
 detection = NodePath("../../Detection")
 
-[node name="MinimizeDangerGoal" type="Node" parent="GoalManager" node_paths=PackedStringArray("detection")]
-script = ExtResource("3_2gagn")
-detection = NodePath("../../Detection")
-
-[node name="DodgeGoal" type="Node" parent="GoalManager" node_paths=PackedStringArray("detection")]
-script = ExtResource("3_ica8u")
-detection = NodePath("../../Detection")
-
-[node name="RelaxGoal" type="Node" parent="GoalManager"]
-script = ExtResource("4_31o0i")
-
-[node name="InactiveGoal" type="Node" parent="."]
-
-[node name="GetNearTargetGoal" type="Node" parent="InactiveGoal" node_paths=PackedStringArray("detection")]
-script = ExtResource("3_32y0x")
-detection = NodePath("../../Detection")
-
-[node name="DodgeGoal" type="Node" parent="InactiveGoal"]
-script = ExtResource("3_ica8u")
-
-[node name="HideGoal" type="Node" parent="InactiveGoal" node_paths=PackedStringArray("detection")]
-script = ExtResource("5_eswt2")
-detection = NodePath("../../Detection")
-
 [node name="ActionManager" type="Node" parent="."]
 
 [node name="GoToTargetAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement", "detection")]
 script = ExtResource("6_2m31t")
 movement = NodePath("../../Movement")
 detection = NodePath("../../Detection")
+
+[node name="GoToNodeAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement", "detection")]
+script = ExtResource("7_t8k7v")
+movement = NodePath("../../Movement")
+detection = NodePath("../../Detection")
+
+[node name="EngageTargetAction" type="Node" parent="ActionManager"]
+script = ExtResource("12_m6105")
+
+[node name="DisengageTargetAction" type="Node" parent="ActionManager"]
+script = ExtResource("13_bkkqe")
 
 [node name="DodgeAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("movement")]
 script = ExtResource("9_aine8")
@@ -2010,17 +2054,6 @@ movement = NodePath("../../Movement")
 [node name="MeleeAction" type="Node" parent="ActionManager" node_paths=PackedStringArray("attack", "detection")]
 script = ExtResource("7_beru8")
 attack = NodePath("../../Attack")
-detection = NodePath("../../Detection")
-
-[node name="InactiveAction" type="Node" parent="."]
-
-[node name="ShootAction" type="Node" parent="InactiveAction" node_paths=PackedStringArray("projectile")]
-script = ExtResource("5_4xnj3")
-projectile = NodePath("../../Attack")
-
-[node name="GoToNodeAction" type="Node" parent="InactiveAction" node_paths=PackedStringArray("movement", "detection")]
-script = ExtResource("7_t8k7v")
-movement = NodePath("../../Movement")
 detection = NodePath("../../Detection")
 
 [node name="Health" type="Node" parent="." node_paths=PackedStringArray("hitbox")]
@@ -2041,22 +2074,24 @@ target_raycast = NodePath("../TargetRayCast")
 movement_raycast = NodePath("../MovementRayCast")
 movement = NodePath("../Movement")
 
-[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("navigation_agent", "detection", "animation")]
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("navigation_agent", "detection", "animation", "timer")]
 script = ExtResource("9_5draj")
 navigation_agent = NodePath("../NavigationAgent3D")
 detection = NodePath("../Detection")
 animation = NodePath("../Animation")
+timer = NodePath("../DodgeTimer")
 
-[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("projectile_marker", "shoot_timer", "hitbox_area", "animation")]
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("projectile_marker", "shoot_timer", "hitbox_area", "animation", "detection")]
 script = ExtResource("10_gxlm2")
 projectile_marker = NodePath("../ProjectileMarker")
 shoot_timer = NodePath("../ShootTimer")
 hitbox_area = NodePath("../HitboxArea")
 animation = NodePath("../Animation")
+detection = NodePath("../Detection")
 
 [node name="Animation" type="Node" parent="." node_paths=PackedStringArray("animation_player")]
 script = ExtResource("17_pqyy2")
-animation_player = NodePath("../lighthead/AnimationPlayer")
+animation_player = NodePath("../walker/AnimationPlayer")
 
 [node name="AttackRangeArea" type="Area3D" parent="."]
 collision_mask = 8
@@ -2102,6 +2137,9 @@ wait_time = 10.0
 one_shot = true
 
 [node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DodgeTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

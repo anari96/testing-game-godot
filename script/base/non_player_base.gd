@@ -16,15 +16,14 @@ var SPEED_MODIFIER = 1.0
 var state = {
 	"is_near_target" = false,
 	"is_target_visible" = false,
+	"is_tracking_target" = false,
+	"is_in_animation" = false,
 	"is_aimed" = false,
 	"is_hiding" = false,
 	"low_health" = false,
-	"can_shoot" = true,
-	"is_in_animation" = false
+	"can_dodge" = true,
+	"win" = false
 }
-
-func _physics_process(delta):
-	move_and_slide()
 
 func _process(delta):
 	var goal = get_best_goal()
@@ -45,18 +44,17 @@ func _process(delta):
 			if _goal != null:
 				_plan = get_plan(_goal,blackboard)
 			_plan_step = 0
-			print(goal)
-			print(blackboard)
-			print(_plan)
+			#print(goal)
+			#print(blackboard)
+			#print(_plan)
 		elif _goal != null:
 			follow_plan(_plan,delta)
 
 func follow_plan(plan,delta):
 	if plan.size() == 0:
 		return
-	
 
-	var is_step_complete = plan[_plan_step].execute(delta)
+	var is_step_complete = plan[_plan_step].execute(self,delta)
 	if is_step_complete and _plan_step < plan.size() - 1:
 		print("action completed")
 		_plan_step += 1

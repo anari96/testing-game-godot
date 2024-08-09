@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://3eofywvhdde3"]
+[gd_scene load_steps=43 format=3 uid="uid://3eofywvhdde3"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_kwt2y"]
 [ext_resource type="Script" path="res://script/player_component/component.gd" id="2_j4fmf"]
@@ -6,10 +6,11 @@
 [ext_resource type="Script" path="res://script/player_component/move.gd" id="3_0j3ka"]
 [ext_resource type="AnimationLibrary" uid="uid://ea7ktxjbrrts" path="res://animation/camera/camera.res" id="3_am4lt"]
 [ext_resource type="Script" path="res://script/player/weapon_raycast.gd" id="3_kavw8"]
-[ext_resource type="PackedScene" uid="uid://dxun0ixfth63f" path="res://scene/weapon/weapon_gun.tscn" id="4_ij58q"]
 [ext_resource type="Script" path="res://script/player_component/health.gd" id="4_j1cpd"]
+[ext_resource type="PackedScene" uid="uid://dx286dmvsdwgh" path="res://scene/weapon/weapon_autogun.tscn" id="5_6xrrl"]
 [ext_resource type="Script" path="res://script/player_component/stamina.gd" id="5_jv5rv"]
 [ext_resource type="PackedScene" uid="uid://b88ih5u6k4oay" path="res://scene/weapon/weapon_wrench.tscn" id="6_ye1gw"]
+[ext_resource type="PackedScene" uid="uid://b6y0k8gigfejf" path="res://scene/weapon/weapon_sword.tscn" id="7_nxhly"]
 [ext_resource type="Script" path="res://script/player_component/wall_detector.gd" id="9_jc8q5"]
 [ext_resource type="Script" path="res://script/player_component/dash.gd" id="10_6ihn3"]
 [ext_resource type="Script" path="res://script/player_component/mantling.gd" id="11_27xkv"]
@@ -186,10 +187,11 @@ stamina = NodePath("../../component/stamina")
 movement = NodePath("../../component/move")
 camera_raycast = NodePath("../Camera3D/WeaponRaycast")
 
-[node name="WeaponGun" parent="head/hand" instance=ExtResource("4_ij58q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0185806, 0)
+[node name="WeaponAutoGun" parent="head/hand" instance=ExtResource("5_6xrrl")]
 
 [node name="WeaponWrench" parent="head/hand" instance=ExtResource("6_ye1gw")]
+
+[node name="WeaponSword" parent="head/hand" instance=ExtResource("7_nxhly")]
 
 [node name="InteractRaycast" type="RayCast3D" parent="head"]
 visible = false
@@ -554,31 +556,6 @@ offset_right = 266.0
 offset_bottom = 38.0
 script = ExtResource("22_rfh2k")
 
-[node name="ColorRect2" type="ColorRect" parent="UserInterface/ui"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 69.0
-offset_top = -151.0
-offset_right = 315.0
-offset_bottom = -90.0
-grow_vertical = 0
-
-[node name="ColorRect" type="ColorRect" parent="UserInterface/ui"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 70.0
-offset_top = -150.0
-offset_right = 316.0
-offset_bottom = -90.0
-grow_vertical = 0
-color = Color(0, 0, 0, 1)
-
 [node name="ColorRect3" type="ColorRect" parent="UserInterface/ui"]
 z_index = -1
 layout_mode = 1
@@ -590,7 +567,44 @@ offset_top = -150.0
 offset_right = 315.0
 offset_bottom = -91.0
 grow_vertical = 0
-color = Color(0.00402995, 0.12215, 0.165864, 1)
+color = Color(0.40956, 0.531452, 0.766438, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="UserInterface/ui/ColorRect3"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -61.0
+offset_right = 246.0
+offset_bottom = 2.0
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="UserInterface/ui/ColorRect3"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -60.0
+offset_right = 245.0
+offset_bottom = 1.0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/ui/ColorRect3"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -59.0
+offset_right = 246.0
+offset_bottom = 1.0
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
 
 [node name="ui2" type="Control" parent="UserInterface" groups=["interface"]]
 layout_mode = 3

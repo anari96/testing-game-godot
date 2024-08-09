@@ -70,7 +70,7 @@ material = SubResource("StandardMaterial3D_v1xmu")
 [node name="SmokeParticle" type="GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32402, -0.183392, -1.12268)
 emitting = false
-amount = 50
+amount = 10
 one_shot = true
 explosiveness = 1.0
 randomness = 0.06

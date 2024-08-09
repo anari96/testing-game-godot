@@ -13,5 +13,5 @@ func required_state():
 func desired_state():
 	return {}
 
-func execute(_delta):
+func execute(actor,_delta):
 	print("action executed")

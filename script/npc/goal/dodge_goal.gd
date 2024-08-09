@@ -4,14 +4,15 @@ extends Goal
 @export var detection: Node
 
 func validity():
-	if detection._target != null:
-		if actor.state["is_aimed"] == true:
-			return true
+	if actor.state["can_dodge"] == true:
+		if detection._target != null:
+			if actor.state["is_aimed"] == true:
+				return true
 	else:
 		return false
 
 func priority():
-	return 10
+	return 15
 
 func desired_state():
 	return {

@@ -6,15 +6,16 @@ extends Weapon
 @export var hurtbox : Area3D
 @onready var hand_parent = get_parent()
 
-const stamina_usage = 27
+@export var damage = 18
+@export var stamina_usage = 14
+
 var can_use : bool = true
 var attack_level = 1
 var push_forward_value = 10
 
-@export var damage = 22
-
 func _ready() -> void:
-	equipped = true
+	hurtbox.monitoring = false
+	equipped = false
 	animation_player.play("idle")
 	cooldown_timer.timeout.connect(_cooldown_timer_timeout)
 	attack_level_cooldown_timer.timeout.connect(_attack_level_cooldown_timer_timeout)
@@ -27,8 +28,8 @@ func _physics_process(delta) -> void:
 		hide()
 
 func use1() -> void:
-	if can_use == true && hand_parent.stamina.stamina >= stamina_usage:
-		hand_parent.stamina.damage(13)
+	if can_use == true && hand_parent.stamina.stamina >= 1:
+		hand_parent.stamina.damage(stamina_usage)
 		can_use = false
 		
 		attack()
@@ -43,6 +44,8 @@ func attack() -> void:
 			animation = "attack1"
 		2:
 			animation = "attack2"
+		3:
+			animation = "attack3"
 		_:
 			attack_level = 1
 			animation = "attack1"
@@ -74,6 +77,12 @@ func _cooldown_timer_timeout():
 func _attack_level_cooldown_timer_timeout():
 	attack_level = 1
 
+func turn_on_area():
+	hurtbox.monitoring = true
+	
+func turn_off_area():
+	hurtbox.monitoring = false
+
 func _on_hurtbox_body_entered(body):
-	if body.is_in_group("enemy") :
-		body.damage(damage)
+	if body.get_node("Health") != null:
+			body.get_node("Health").hurt(30)

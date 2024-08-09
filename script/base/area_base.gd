@@ -3,7 +3,7 @@ extends Area3D
 class_name AreaBase
 
 func enable():
-	$CollisionShape3D.disabled = false
+	monitoring = true
 	
 func disable():
-	$CollisionShape3D.disabled = true
+	monitoring = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dxun0ixfth63f"]
+[gd_scene load_steps=19 format=3 uid="uid://dxun0ixfth63f"]
 
 [ext_resource type="Script" path="res://script/weapon/weapon_gun.gd" id="1_7nxqq"]
 [ext_resource type="AudioStream" uid="uid://bktgjliva3dh7" path="res://audio/gunshot.ogg" id="6_r2j5o"]
@@ -378,117 +378,6 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_ltq8c"]
 size = Vector3(0.68457, 0.730469, 0.431641)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j46ha"]
-animation = &"gun_equip"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m37p8"]
-animation = &"gun_reference"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fqafu"]
-animation = &"gun_walk"
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_bvqf8"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_6htnw"]
-graph_offset = Vector2(-58, 93)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_fqafu")
-nodes/Animation/position = Vector2(120, 120)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_m37p8")
-"nodes/Animation 2/position" = Vector2(120, 280)
-nodes/Blend2/node = SubResource("AnimationNodeBlend2_bvqf8")
-nodes/Blend2/position = Vector2(350.9, 156.2)
-nodes/output/position = Vector2(580, 160)
-node_connections = [&"Blend2", 0, &"Animation 2", &"Blend2", 1, &"Animation", &"output", 0, &"Blend2"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gw7a3"]
-animation = &"gun_reference"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jgste"]
-animation = &"gun_melee"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ce0ma"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x85nc"]
-nodes/Animation/node = SubResource("AnimationNodeAnimation_jgste")
-nodes/Animation/position = Vector2(170.5, 114.4)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_gw7a3")
-"nodes/Animation 2/position" = Vector2(160, 260)
-nodes/OneShot/node = SubResource("AnimationNodeOneShot_ce0ma")
-nodes/OneShot/position = Vector2(480, 180)
-nodes/output/position = Vector2(720, 200)
-node_connections = [&"OneShot", 0, &"Animation", &"OneShot", 1, &"Animation 2", &"output", 0, &"OneShot"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1b3os"]
-animation = &"gun_reference"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l1l8w"]
-animation = &"gun_reload2"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_h6tn7"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oo0ul"]
-graph_offset = Vector2(-331.168, -56.8874)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_l1l8w")
-nodes/Animation/position = Vector2(-220, 20)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1b3os")
-"nodes/Animation 2/position" = Vector2(-200, 200)
-nodes/OneShot/node = SubResource("AnimationNodeOneShot_h6tn7")
-nodes/OneShot/position = Vector2(80, 60)
-nodes/output/position = Vector2(300, 140)
-node_connections = [&"OneShot", 0, &"Animation", &"OneShot", 1, &"Animation 2", &"output", 0, &"OneShot"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1cfmy"]
-animation = &"gun_reference"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oktk1"]
-animation = &"gun_shoot"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_e3p32"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_lj2vw"]
-graph_offset = Vector2(-40, -25)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_oktk1")
-nodes/Animation/position = Vector2(159.5, 136.4)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_1cfmy")
-"nodes/Animation 2/position" = Vector2(140, 300)
-nodes/OneShot/node = SubResource("AnimationNodeOneShot_e3p32")
-nodes/OneShot/position = Vector2(360, 120)
-nodes/output/position = Vector2(520, 140)
-node_connections = [&"OneShot", 0, &"Animation", &"OneShot", 1, &"Animation 2", &"output", 0, &"OneShot"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i1y1j"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6hgip"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eyona"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2qnjq"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5qgd1"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xh2up"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0npqy"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_17fy6"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xyycl"]
-reset_ends = true
-states/End/position = Vector2(901, 100)
-states/Start/position = Vector2(-68, 31)
-states/gun_equip/node = SubResource("AnimationNodeAnimation_j46ha")
-states/gun_equip/position = Vector2(63, 33)
-states/gun_idle/node = SubResource("AnimationNodeBlendTree_6htnw")
-states/gun_idle/position = Vector2(219, 31)
-states/gun_melee/node = SubResource("AnimationNodeBlendTree_x85nc")
-states/gun_melee/position = Vector2(524, 29)
-states/gun_reload/node = SubResource("AnimationNodeBlendTree_oo0ul")
-states/gun_reload/position = Vector2(219, -70)
-states/gun_shoot/node = SubResource("AnimationNodeBlendTree_lj2vw")
-states/gun_shoot/position = Vector2(219, 128)
-transitions = ["Start", "gun_equip", SubResource("AnimationNodeStateMachineTransition_i1y1j"), "gun_equip", "gun_idle", SubResource("AnimationNodeStateMachineTransition_6hgip"), "gun_idle", "gun_reload", SubResource("AnimationNodeStateMachineTransition_eyona"), "gun_reload", "gun_idle", SubResource("AnimationNodeStateMachineTransition_2qnjq"), "gun_idle", "gun_shoot", SubResource("AnimationNodeStateMachineTransition_5qgd1"), "gun_shoot", "gun_idle", SubResource("AnimationNodeStateMachineTransition_xh2up"), "gun_idle", "gun_melee", SubResource("AnimationNodeStateMachineTransition_0npqy"), "gun_melee", "gun_idle", SubResource("AnimationNodeStateMachineTransition_17fy6")]
-graph_offset = Vector2(-104, -141)
-
 [node name="WeaponGun" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339454, -0.313547)
 script = ExtResource("1_7nxqq")
@@ -504,9 +393,9 @@ bones/0/name = "gun_root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 7.10543e-15, 1.50996e-07, 1.50996e-07, 0, -1, -7.10543e-15, 1, 0, 0, -0.19964, -0.621832)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.19964, -0.621832)
-bones/0/rotation = Quaternion(0.707107, 5.33852e-08, 5.33851e-08, 0.707107)
-bones/0/scale = Vector3(1, 1, 1)
+bones/0/position = Vector3(0.616628, -0.99704, -2.28059)
+bones/0/rotation = Quaternion(0.681998, 5.52157e-08, 5.14894e-08, 0.731354)
+bones/0/scale = Vector3(0.997355, 0.997355, 0.997355)
 bones/1/name = "gun_slide"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, -4.23516e-22, -1.86573e-29, 4.23516e-22, 1, 8.81068e-08, -1.86573e-29, -8.81068e-08, 1, 3.31597e-09, 0.637346, -0.183642)
@@ -597,18 +486,3 @@ script = ExtResource("8_2ajy8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeleeArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0852101, 0)
 shape = SubResource("BoxShape3D_ltq8c")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("../gun")
-tree_root = SubResource("AnimationNodeStateMachine_xyycl")
-anim_player = NodePath("../gun/AnimationPlayer")
-parameters/gun_idle/Blend2/blend_amount = 1.0
-parameters/gun_melee/OneShot/active = false
-parameters/gun_melee/OneShot/internal_active = false
-parameters/gun_melee/OneShot/request = 0
-parameters/gun_reload/OneShot/active = false
-parameters/gun_reload/OneShot/internal_active = false
-parameters/gun_reload/OneShot/request = 0
-parameters/gun_shoot/OneShot/active = false
-parameters/gun_shoot/OneShot/internal_active = false
-parameters/gun_shoot/OneShot/request = 0
